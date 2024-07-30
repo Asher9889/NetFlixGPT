@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --red-color : #e50914;
+    --red2-color : #e50914d5;
+}
+
+@layer base{
+    @font-face {
+    font-family: 'netFlixBd';
+    src: url(/src/assests/fonts/NetflixSans_W_Bd.woff2) format('woff2');
+  }
+}
+
+@layer base{
+    @font-face {
+    font-family: 'netFlixMd';
+    src: url(/src/assests/fonts/NetflixSans_W_Md.woff2) format('woff2');
+  }
+}
+
+@layer base{
+    @font-face {
+    font-family: 'netFlixRg';
+    src: url(/src/assests/fonts/NetflixSans_W_Rg.woff2) format('woff2');
+  }
+}
+
+
+
+
+.blur{
+    background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,0.7349790257900035) 100%, rgba(0,0,0,0) 100%);
+}
