@@ -1,10 +1,10 @@
-import Header from "../components/Header";
+
 import SignIn from "../components/SignIn";
 
 
 const Home = ()=>{
     return (
-        <div>
+        <div className="w-screen">
             <SignIn />
         </div>
     )

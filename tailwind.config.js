@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
@@ -14,6 +15,10 @@ module.exports = {
         'signInBg': "url('/src/assests/signInBg.jpg')",
         
       }
+    },
+    screens: {
+      'xs': '375px',
+      ...defaultTheme.screens,
     },
   },
   plugins: [],
