@@ -10,7 +10,7 @@ const SignUp = ()=>{
                 <Header />
             </header>
             <ContentWrapper>
-                <div className="px-4 w-2/5 mx-auto mt-[3%] font-netFlixMd">
+                <div className="px-4 md:w-3/5 lg:w-2/5 mx-auto mt-[3%] font-netFlixMd">
                     
                     <form className="w-full  flex flex-col gap-4">
                         <h1 className="text-[2rem] opacity-[0.8]">Welcome back! <br/>Joining Netflix is easy.</h1>
