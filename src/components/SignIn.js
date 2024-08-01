@@ -4,7 +4,7 @@ import Header from "./Header";
 const SignIn = () => {
 
   return (
-    <section className="bg-black md:bg-formBg w-screen h-screen">
+    <section className="bg-black md:bg-formBg w-screen h-screen overflow-x-hidden">
       <div className="absolute top-0 w-full h-full  bg-black opacity-[0.4]" />
       <div className="relative z-10">
         <ContentWrapper>
