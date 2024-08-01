@@ -1,7 +1,10 @@
 import Header from "./Header";
 import EmailBox from "./EmailBox";
 
+
+
 const Landing = () => {
+
   return (
     <div className="relative w-full overflow-x-hidden   bg-signInBg bg-cover pb-10">
       <div className="bg-black  opacity-[0.75] absolute  w-full h-full" />

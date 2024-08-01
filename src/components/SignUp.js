@@ -1,8 +1,14 @@
+import { useState } from "react";
 import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SignUp = ()=>{
+
+    const email = useSelector((store)=> store.user.email)
+    console.log(email)
+
     return (
         <section>
             
@@ -17,8 +23,9 @@ const SignUp = ()=>{
                         <p className="text-[1.3rem] font-netFlixRg opacity-[0.8]">Enter your password and you'll be watching in no time.</p>
                         <span>
                             <h5 className="text-[1.3rem] font-netFlixRg opacity-[0.8]">Email</h5>
-                            <p className="opacity-[0.95]">abs@gmail.com</p>
+                            <p className="opacity-[0.95]">{email}</p>
                         </span>
+                        <input className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="text" placeholder="Enter your Name"/>
                         <input className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="password" placeholder="Enter your password"/>
                         <Link className="text-[1rem] font-netFlixRg text-[var(--blue-color)] hover:underline">Forgot your password?</Link>
                         <button className="h-16 text-white rounded-md font-netFlixRg text-[1.6rem] bg-[var(--red-color)] hover:bg-[var(--red2-color)]">Next</button>

@@ -20,7 +20,7 @@ const SignIn = () => {
             </form>
 
           </div>
-        </ContentWrapper>
+        </ContentWrapper> 
       </div>
     </section>
   );

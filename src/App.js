@@ -3,6 +3,8 @@ import './App.css';
 import Home from './Pages/Home';
 import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp";
+import { Provider } from "react-redux";
+import appStore from "./utils/store/store";
 
 const appRoutes = createBrowserRouter([
     {
@@ -22,7 +24,9 @@ const appRoutes = createBrowserRouter([
 function App() {
   return (
     <div className="App">
-      <RouterProvider router={appRoutes}/>
+      <Provider store={appStore}>
+        <RouterProvider router={appRoutes}/>
+      </Provider>
     </div>
   );
 }

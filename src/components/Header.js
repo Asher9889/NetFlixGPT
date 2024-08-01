@@ -9,7 +9,7 @@ const Header = ()=>{
             <Link to="/"><img className="w-[7rem] lg:w-48" src={netFlixLogo} alt="text"/></Link>
             <span className="flex flex-row gap-2 xs:gap-3  sm:gap-8  text-white">
                 <select className="bg-black px-[4px] py-[6px] lg:px-4 rounded-md border-[2px] border-zinc-600" >
-                    {option.map((lan)=> <option className="bg-white text-black">{lan}</option>)}
+                    {option.map((lan)=> <option key={lan} className="bg-white text-black">{lan}</option>)}
                 </select>
                 <Link to="/login"><button className="bg-[var(--red-color)] text-md hover:bg-[var(--red2-color)] font-bold px-3 py-[3px] lg:px-4 lg:py-[6px] rounded-md">Sign In</button></Link>
             </span>
