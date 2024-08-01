@@ -13,6 +13,7 @@ module.exports = {
       },
       backgroundImage: {
         'signInBg': "url('/src/assests/signInBg.jpg')",
+        'formBg': "url('/src/assests/formBg.jpg')"
         
       }
     },

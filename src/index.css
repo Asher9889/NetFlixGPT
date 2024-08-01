@@ -4,7 +4,11 @@
 
 :root{
     --red-color : #e50914;
-    --red2-color : #e50914d5;
+    --red2-color : #f6121d;
+    --red3-color: rgb(229,9,20);
+    --fillInputBox-color: #232635;
+    --emptyInputBox-color: #121213;
+    --blue-color: #0071eb;
 }
 
 @layer base{

@@ -1,12 +1,12 @@
 
-import SignIn from "../components/SignIn";
+import Landing from "../components/Landing";
 
 
 const Home = ()=>{
     return (
-        <div className="w-screen">
-            <SignIn />
-        </div>
+        <section className="w-screen">
+            <Landing />
+        </section>
     )
 }
 

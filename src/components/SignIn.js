@@ -1,25 +1,31 @@
+import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
-import EmailBox from "./EmailBox";
 
 const SignIn = () => {
-  return (
-    <div className="relative w-full overflow-x-hidden   bg-signInBg bg-cover pb-10">
-      <div className="bg-black  opacity-[0.75] absolute  w-full h-full" />
 
-      <div className="absolute z-10 w-full px-3">
-        <Header />
+  return (
+    <section className="bg-black md:bg-formBg w-screen h-screen">
+      <div className="absolute top-0 w-full h-full  bg-black opacity-[0.4]" />
+      <div className="relative z-10">
+        <ContentWrapper>
+          <Header />
+          <div className="md:w-2/5  md:mx-auto mt-[4%] md:mt-[2%] bg-black md:opacity-[0.7] text-white  px-3 md:p-16 rounded-md">
+            <form className="flex flex-col gap-6 md:gap-8 font-netFlixRg ">
+                <h1 className=" text-[2rem] lg:text-4xl font-semibold">Sign In</h1>
+                <input type="email" placeholder="Email or mobile number" className=" h-14 text-lg px-4 rounded-md bg-[var(--emptyInputBox-color)] border-[1.5px] border-zinc-600" />
+                <input type="text" placeholder="Password" className=" h-14 text-lg px-4 rounded-md bg-[var(--emptyInputBox-color)] border-[1.5px] border-zinc-600" />
+                <button className="relative z-10 bg-[var(--red-color)] h-10 rounded-md hover:bg-[var(--red2-color)]"> Sign in</button>
+                <button className="text-center hover:text-zinc-400 hover:underline">Forget Password?</button>
+                <h6 className="text-zinc-400">New to Netflix ? <button className="text-white hover:underline">Sign up now.</button></h6>
+            </form>
+
+          </div>
+        </ContentWrapper>
       </div>
-      <div className="relative  text-center w-full h-full flex flex-col justify-center items-center text-white px-6 pt-[40%] xs:pt-[30%] lg:pt-[25%] xl:pt-[15%] ">
-        <h1 className="text-[2rem] xs:text-[2rem] leading-[2.5rem]  lg:text-5xl font-netFlixBd  lg:tracking-[1px]">
-          Unlimited movies, TV shows and more
-        </h1>
-        <h3 className="text-netFlixMd pt-[10%] lg:pt-4    text-xl lg:text-3xl ">
-          Watch anywhere. Cancel anytime.
-        </h3>
-        <EmailBox />
-      </div>
-    </div>
+    </section>
   );
 };
 
 export default SignIn;
+
+
