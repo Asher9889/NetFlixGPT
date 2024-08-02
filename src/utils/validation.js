@@ -3,3 +3,9 @@ export function emailValidation(email){
 
     return isEmailValid;
 }
+
+export function passwordValidation(password){
+    const isValidPassword = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(password);
+
+    return isValidPassword;
+}
