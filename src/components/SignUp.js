@@ -1,13 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addName, addPassword} from "../utils/store/userSlice"
+import { addName, addPassword, addDetailsInFirebase} from "../utils/store/userSlice"
 import { passwordValidation } from "../utils/validation";
 import { VscError } from "react-icons/vsc";
 import { PiEyeSlash } from "react-icons/pi";
 import { LiaEyeSolid } from "react-icons/lia";
+import { authUsingEmailAndPassword } from "../utils/firebaseAuth/passwordAuth";
+import {  loginWithEmailAndPassword } from "../utils/firebaseAuth/passwordLogin"
+import { auth } from "../utils/firebaseAuth/firebase";
+
 
 const SignUp = ()=>{
 
@@ -22,6 +26,7 @@ const SignUp = ()=>{
 
     const nameRef = useRef(null);
     const dispatch = useDispatch();
+    const naviagte = useNavigate();
     
     useEffect(()=>{
         handlePasswordValidation()
@@ -74,8 +79,20 @@ const SignUp = ()=>{
 
     // handle sing up button
 
-    function handleSignUp(e){
-        e.preventDefault();
+    async function handleSignUp(e){
+        try {
+            e.preventDefault();
+            dispatch(addName(userName));
+            dispatch(addPassword(userPassword))
+            const user = await authUsingEmailAndPassword(auth, email, userPassword )
+            const loggedInUser = await loginWithEmailAndPassword(auth, email, userPassword)
+            if(loggedInUser){
+                dispatch(addDetailsInFirebase(loggedInUser))
+                naviagte("/browse");
+            }
+        } catch (error) {
+            console.log(error);
+        }
 
     }
 

@@ -6,6 +6,7 @@ const userSlice = createSlice({
         name: null,
         email: null,
         password: null,
+        firebaseDetails: null
     },
 
     reducers: {
@@ -17,11 +18,14 @@ const userSlice = createSlice({
         },
         addPassword: (state, action)=>{
             state.password = action.payload
+        },
+        addDetailsInFirebase: (state, action)=>{
+            state.firebaseDetails = action.payload;
         }
     }
 
 })
 
-export const { addEmail, addName, addPassword } = userSlice.actions;
+export const { addEmail, addName, addPassword, addDetailsInFirebase } = userSlice.actions;
 
 export default userSlice.reducer;
