@@ -65,19 +65,19 @@ const EmailBox = () => {
       <h4 className="text-xl pb-4  px-4">
         Ready to watch? Enter your email to create or restart your membership.
       </h4>
-      <div className="flex flex-col md:flex-row justify-center items-center gap-4 lg:gap-2 items-center pt-4">
-        <div className="relative">
+      <div className="w-full flex flex-col md:flex-row justify-center items-center gap-4 lg:gap-2  pt-4">
+        <div className="w-4/5 md:w-7/12 relative flex flex-col sm:flex-row justify-center ">
           <input
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlue}
             value={inputValue}
-            className="lg:w-7/12 lg:h-14 h-12  rounded-md px-4 text-lg bg-transparent border-[1px] border-green-600"
+            className="w-full  lg:h-14 h-12  rounded-md px-4 text-lg bg-transparent border-[1px] border-green-600"
             type="text"
             placeholder="Email Address"
           />
           {showMsg ? (
-            <p className="absolute -bottom-[60%] left-[2%] text-start flex flex-row items-center gap-2 text-sm text-[var(--red4-color)]  font-sans">
+            <p className="absolute -bottom-[50%] left-[2%] text-start flex flex-row items-center gap-2 text-sm text-[var(--red4-color)]  font-sans">
               <VscError />
               {showEmptyInput
                 ? "Email is required"
@@ -91,7 +91,7 @@ const EmailBox = () => {
         </div>
 
         <button
-          className="lg:h-14 h-12 lg:w-4/12 bg-[var(--red-color)] hover:bg-[var(--red2-color)] rounded-md text-xl lg:text-2xl px-2 font-netFlixBd tracking-[0.5px]  justify-center  flex flex-row items-center gap-4 mt-10 sm:mt-0"
+          className="lg:h-14 h-12 w-[70%] xs:w-[50%] sm:w-4/12 bg-[var(--red-color)] hover:bg-[var(--red2-color)] rounded-md text-xl lg:text-2xl px-2 font-netFlixBd tracking-[0.5px]  justify-center  flex flex-row items-center gap-2 md:gap-4 mt-6 sm:mt-0"
           onClick={handleClick}
         >
           Get Started <HiOutlineChevronRight />

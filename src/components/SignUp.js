@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { addName, addPassword} from "../utils/store/userSlice"
 import { passwordValidation } from "../utils/validation";
 import { VscError } from "react-icons/vsc";
 import { PiEyeSlash } from "react-icons/pi";
@@ -14,10 +15,13 @@ const SignUp = ()=>{
     const [showErrorMsg, setShowErrorMsg] = useState(false);
     const [showEmptyMsg, setShowEmptyMsg] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
+    const [userPassword, setUserPassword] = useState(null);
+    const [userName, setUserName] = useState(null);
 
     const email = useSelector((store)=> store.user.email)
 
     const nameRef = useRef(null);
+    const dispatch = useDispatch();
     
     useEffect(()=>{
         handlePasswordValidation()
@@ -40,6 +44,8 @@ const SignUp = ()=>{
                 setShowErrorMsg(true);
             }else{
                 setShowErrorMsg(false)
+                // setting verified password
+                setUserPassword(password)
             }
         }
     }
@@ -55,10 +61,24 @@ const SignUp = ()=>{
         setShowErrorMsg(false)
     }
 
+    // for password showing and hiding
     function handleShowPassword(e){
         e.preventDefault();
         setShowPassword(!showPassword)
     }
+
+    // setting name
+    function handleNameInput(){
+        setUserName(nameRef.current.value)
+    }
+
+    // handle sing up button
+
+    function handleSignUp(e){
+        e.preventDefault();
+
+    }
+
 
     return (
         <section>
@@ -76,7 +96,7 @@ const SignUp = ()=>{
                             <h5 className="text-[1.1rem] font-netFlixRg opacity-[0.8]">Email</h5>
                             <p className="opacity-[0.95]">{email}</p>
                         </span>
-                        <input ref={nameRef} className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="text" placeholder="Enter your Name"/>
+                        <input onClick={handleNameInput} ref={nameRef} className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="text" placeholder="Enter your Name"/>
                         <div>
                             <span className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg  flex flex-row justify-between">
                                 <input
@@ -95,7 +115,7 @@ const SignUp = ()=>{
 
                         <div className="flex flex-col gap-4 -mt-4">
                             <Link className="text-[1rem] font-netFlixRg mt-2 text-[var(--blue-color)] hover:underline">Forgot your password?</Link>
-                            <button className="h-16 text-white rounded-md font-netFlixRg text-[1.6rem] bg-[var(--red-color)] hover:bg-[var(--red2-color)]">Next</button>
+                            <button onClick={handleSignUp} className="h-16 text-white rounded-md font-netFlixRg text-[1.6rem] bg-[var(--red-color)] hover:bg-[var(--red2-color)]">Sign up</button>
                         
                         </div>
                     </form>
