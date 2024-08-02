@@ -5,12 +5,15 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { passwordValidation } from "../utils/validation";
 import { VscError } from "react-icons/vsc";
+import { PiEyeSlash } from "react-icons/pi";
+import { LiaEyeSolid } from "react-icons/lia";
 
 const SignUp = ()=>{
 
     const [password, setPassword] = useState(null)
     const [showErrorMsg, setShowErrorMsg] = useState(false);
     const [showEmptyMsg, setShowEmptyMsg] = useState(false)
+    const [showPassword, setShowPassword] = useState(false)
 
     const email = useSelector((store)=> store.user.email)
 
@@ -29,8 +32,8 @@ const SignUp = ()=>{
     function handlePasswordValidation(){
         if(password === ""){
             setShowEmptyMsg(true)
-            // setShowErrorMsg(true)
         }else{
+            if(password === null) return;
             const isPasswordValid = passwordValidation(password);
             if(!isPasswordValid){
                 setShowEmptyMsg(false);
@@ -52,6 +55,10 @@ const SignUp = ()=>{
         setShowErrorMsg(false)
     }
 
+    function handleShowPassword(e){
+        e.preventDefault();
+        setShowPassword(!showPassword)
+    }
 
     return (
         <section>
@@ -71,14 +78,17 @@ const SignUp = ()=>{
                         </span>
                         <input ref={nameRef} className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="text" placeholder="Enter your Name"/>
                         <div>
-                            <input
-                            onChange={handlePasswordChange} 
-                            onFocus={handleFocus}
-                            onBlur={handleBlur}
-                            className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="password" placeholder="Enter your password"
-                            />
+                            <span className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg  flex flex-row justify-between">
+                                <input
+                                    onChange={handlePasswordChange} 
+                                    onFocus={handleFocus}
+                                    onBlur={handleBlur}
+                                    className="w-2/3 border-none outline-none" type={showPassword ? "text" : "password"} placeholder="Enter your password"
+                                />
+                                <button onClick={handleShowPassword} className="text-[1.5rem]">{showPassword ?   <LiaEyeSolid /> : <PiEyeSlash />}</button>
+                            </span>
                             <p className="text-sm text-[var(--red4-color)]  font-sans">
-                                {showEmptyMsg ? (<span className="flex  items-center gap-2"><VscError /> Password is required </span>) : (showErrorMsg ? "Capital letter and symbol is required" : <span className="opacity-0">i am hidden</span>)}
+                                {showEmptyMsg ? (<span className="flex  items-center gap-2"><VscError /> Password is required </span>) : (showErrorMsg ? "Capital letter, symbol and number is required" : <span className="opacity-0">i am hidden</span>)}
                                 
                             </p>
                         </div>
