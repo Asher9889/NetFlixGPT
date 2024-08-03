@@ -73,16 +73,20 @@ const SignUp = ()=>{
         setShowPassword(!showPassword)
     }
 
+    // Singup Logic
     async function handleSignUp(e){
         try {
             e.preventDefault();
             const user = await authUsingEmailAndPassword(auth, email, userPassword, nameRef.current.value)
-            const loggedInUser = await loginWithEmailAndPassword(auth, email, userPassword)
+            // onAuthStateChange from firebase automatic redirect us to browse page
+            
+            /*const loggedInUser = await loginWithEmailAndPassword(auth, email, userPassword)
             if(loggedInUser){
                 dispatch(addName(loggedInUser.user.displayName))
                 dispatch(addEmail(loggedInUser.user.email))
                 naviagte("/browse");
             }
+           */
         } catch (error) {
             dispatch(removeUser());
             setFirebaseError(error.message);

@@ -40,3 +40,16 @@
     background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,0.7349790257900035) 100%, rgba(0,0,0,0) 100%);
 }
+
+@keyframes spinner {
+  0%{
+    transform: rotate(0) scale(1);
+  }
+  100%{
+    transform: rotate(360deg) scale(1.2);
+  }
+}
+
+.loading{
+  animation: .8s ease infinite alternate spinner;
+}
