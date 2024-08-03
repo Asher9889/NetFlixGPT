@@ -1,13 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const  initialState = {
+    name: null,
+    email: null,
+    password: null,
+    firebaseDetails: null
+}
+
 const userSlice = createSlice({
     name: "user",
-    initialState: {
-        name: null,
-        email: null,
-        password: null,
-        firebaseDetails: null
-    },
+    initialState,
+    // : {
+    //     name: null,
+    //     email: null,
+    //     password: null,
+    //     firebaseDetails: null
+    // },
 
     reducers: {
         addEmail: (state, action)=>{
@@ -21,11 +29,14 @@ const userSlice = createSlice({
         },
         addDetailsInFirebase: (state, action)=>{
             state.firebaseDetails = action.payload;
+        },
+        removeUser: (state,action)=>{
+            Object.assign(state, initialState);
         }
     }
 
 })
 
-export const { addEmail, addName, addPassword, addDetailsInFirebase } = userSlice.actions;
+export const { addEmail, addName, addPassword, addDetailsInFirebase, removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

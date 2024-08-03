@@ -3,13 +3,13 @@ import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addName, addPassword, addDetailsInFirebase} from "../utils/store/userSlice"
+import { addName, addPassword, addDetailsInFirebase, addEmail, removeUser} from "../utils/store/userSlice"
 import { passwordValidation } from "../utils/validation";
 import { VscError } from "react-icons/vsc";
 import { PiEyeSlash } from "react-icons/pi";
 import { LiaEyeSolid } from "react-icons/lia";
-import { authUsingEmailAndPassword } from "../utils/firebaseAuth/passwordAuth";
-import {  loginWithEmailAndPassword } from "../utils/firebaseAuth/passwordLogin"
+import { authUsingEmailAndPassword , createUser} from "../utils/firebaseAuth/passwordAuth";
+import {  loginWithEmailAndPassword} from "../utils/firebaseAuth/passwordLogin"
 import { auth } from "../utils/firebaseAuth/firebase";
 
 
@@ -20,8 +20,9 @@ const SignUp = ()=>{
     const [showEmptyMsg, setShowEmptyMsg] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
     const [userPassword, setUserPassword] = useState(null);
-    const [userName, setUserName] = useState(null);
+    const [firebaseError, setFirebaseError] = useState(null);
 
+    // Subscribing Email from store to signUp page 
     const email = useSelector((store)=> store.user.email)
 
     const nameRef = useRef(null);
@@ -66,36 +67,29 @@ const SignUp = ()=>{
         setShowErrorMsg(false)
     }
 
-    // for password showing and hiding
+    // for password showing and hiding in input
     function handleShowPassword(e){
         e.preventDefault();
         setShowPassword(!showPassword)
     }
 
-    // setting name
-    function handleNameInput(){
-        setUserName(nameRef.current.value)
-    }
-
-    // handle sing up button
-
     async function handleSignUp(e){
         try {
             e.preventDefault();
-            dispatch(addName(userName));
-            dispatch(addPassword(userPassword))
-            const user = await authUsingEmailAndPassword(auth, email, userPassword )
+            const user = await authUsingEmailAndPassword(auth, email, userPassword, nameRef.current.value)
             const loggedInUser = await loginWithEmailAndPassword(auth, email, userPassword)
             if(loggedInUser){
-                dispatch(addDetailsInFirebase(loggedInUser))
+                dispatch(addName(loggedInUser.user.displayName))
+                dispatch(addEmail(loggedInUser.user.email))
                 naviagte("/browse");
             }
         } catch (error) {
+            dispatch(removeUser());
+            setFirebaseError(error.message);
             console.log(error);
         }
 
     }
-
 
     return (
         <section>
@@ -113,7 +107,7 @@ const SignUp = ()=>{
                             <h5 className="text-[1.1rem] font-netFlixRg opacity-[0.8]">Email</h5>
                             <p className="opacity-[0.95]">{email}</p>
                         </span>
-                        <input onClick={handleNameInput} ref={nameRef} className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="text" placeholder="Enter your Name"/>
+                        <input ref={nameRef} className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg" type="text" placeholder="Enter your Name"/>
                         <div>
                             <span className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg  flex flex-row justify-between">
                                 <input
