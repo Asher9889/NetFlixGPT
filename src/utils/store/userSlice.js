@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const  initialState = {
     name: null,
     email: null,
-    password: null,
-    firebaseDetails: null
+    // password: null,
+    // firebaseDetails: null
 }
 
 const userSlice = createSlice({
@@ -24,12 +24,12 @@ const userSlice = createSlice({
         addName: (state, action)=>{
             state.name = action.payload;
         },
-        addPassword: (state, action)=>{
-            state.password = action.payload
-        },
-        addDetailsInFirebase: (state, action)=>{
-            state.firebaseDetails = action.payload;
-        },
+        // addPassword: (state, action)=>{
+        //     state.password = action.payload
+        // },
+        // addDetailsInFirebase: (state, action)=>{
+        //     state.firebaseDetails = action.payload;
+        // },
         removeUser: (state,action)=>{
             Object.assign(state, initialState);
         }
