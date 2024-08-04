@@ -9,7 +9,7 @@ function useNowPlaying() {
   // eslint-disable-next-line 
   useEffect(() => {
     fetchMovies();
-  });
+  }, []);
   // eslint-disable-next-line 
   // no need to add empty array beacuse of secure route browse page only 
   //  renders once

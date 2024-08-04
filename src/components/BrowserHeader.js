@@ -44,7 +44,7 @@ const BrowserHeader = () => {
   }
 
   return (
-    <header  className="w-screen flex flex-row justify-between items-center px-[3%] pt-[1%] bg-gradient-to-b from-zinc-500 pb-4">
+    <header  className="w-screen flex flex-row justify-between items-center px-[3%] pt-[1%] bg-gradient-to-b from-zinc-900 pb-4">
       <div className="relative flex flex-row items-center gap-10 ">
          <img className="w-28" src={netFlixLogo} alt="netflixLogo" />
          <div className="hidden lg:block">

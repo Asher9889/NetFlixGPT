@@ -1,23 +1,31 @@
 import BrowserHeader from "../components/BrowserHeader";
 import TrailerPlayingMainDisplay from "../components/TrailerPlayingMainDisplay";
+import TrailerPlayingSecondaryDisplay from "../components/TrailerPlayingSecondaryDisplay";
 import useAuthStateChange from "../hooks/useAuthStateChange";
 import useNowPlaying from "../hooks/useNowPlaying";
-import { useNavigate } from "react-router-dom";
+
 
 const Browse = () => {
-  const navigate = useNavigate();
-  
-   // hook constantly checking user loggedIn or not
-   useAuthStateChange();
+  // hook constantly checking user loggedIn or not
+  useAuthStateChange();
 
   //  loads all movies in Store
-   useNowPlaying();
+  useNowPlaying();
 
-  
+ 
+
+
   return (
-    <div className="w-screen relative">
-      <BrowserHeader />
-      {/* <TrailerPlayingMainDisplay /> */}
+    <div className="w-screen relative bg-red-500">
+      <div className="relative z-10">
+        <BrowserHeader />
+      </div>
+
+      <div className="w-full h-[100vh] absolute top-0 overflow-x-hidden ">
+        <TrailerPlayingMainDisplay />
+        <TrailerPlayingSecondaryDisplay />
+
+      </div>
       
     </div>
   );
