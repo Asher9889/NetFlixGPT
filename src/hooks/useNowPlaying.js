@@ -6,9 +6,13 @@ import { useDispatch } from "react-redux";
 function useNowPlaying() {
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line 
   useEffect(() => {
     fetchMovies();
-  }, []);
+  });
+  // eslint-disable-next-line 
+  // no need to add empty array beacuse of secure route browse page only 
+  //  renders once
 
   function fetchMovies() {
     try {

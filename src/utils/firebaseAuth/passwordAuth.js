@@ -1,10 +1,9 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { getAuth} from "firebase/auth";
 
 // Authentication using email and password
 export async function authUsingEmailAndPassword(auth, email, password, name) {
   try {
-    const user = await createUserWithEmailAndPassword(auth, email, password);
+    await createUserWithEmailAndPassword(auth, email, password);
     const updatedUser = await updateProfile(auth.currentUser, 
         {
         displayName: name, 

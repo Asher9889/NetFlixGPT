@@ -14,7 +14,7 @@ function useAuthStateChange() {
       } else {
         navigate("/")
       }
-    });
+    })
   }, []);
 }
 
