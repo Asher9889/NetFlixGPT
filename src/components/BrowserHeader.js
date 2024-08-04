@@ -10,12 +10,14 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { FaPencilAlt } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa6";
 import { IoMdHelpCircleOutline } from "react-icons/io";
-
+import logout from "../utils/firebaseAuth/logout"
+import { auth } from "../utils/firebaseAuth/firebase"
 
 
 const BrowserHeader = () => {
   const [showDropDown , setShowDropDown] = useState(false);
 
+ 
 
   // handling Drop Down Menu Visibility
   function handleMouseEnter(){
@@ -25,12 +27,16 @@ const BrowserHeader = () => {
     setShowDropDown(false)
   }
 
+  // handling logout : Already handled error in main file
+  async function handleLogout(){
+    await logout(auth);
+  }
 
   return (
-    <header  className="w-screen flex flex-row justify-between items-center px-[3%] pt-2 bg-gradient-to-b from-zinc-500">
-      <div className="flex flex-row items-center gap-8">
+    <header  className="w-screen flex flex-row justify-between items-center px-[3%] pt-[1%] bg-gradient-to-b from-zinc-500 pb-4">
+      <div className=" flex flex-row items-center gap-10">
          <img className="w-28" src={netFlixLogo} alt="netflixLogo" />
-         <div className="">
+         <div className="hidden lg:block">
             <ul className="flex flex-row gap-8 text-[14px] text-white">
               <li><Link>Home</Link></li>
               <li><Link>TV Shows</Link></li>
@@ -80,7 +86,7 @@ const BrowserHeader = () => {
               </span>
             </div>
           </div>
-          <button className="w-full text-white text-sm border-t-[1px] py-2 hover:underline">Sign out of Netflix</button>
+          <button onClick={handleLogout} className="w-full text-white text-sm border-t-[1px] py-2 hover:underline">Sign out of Netflix</button>
         </motion.div>}
         </AnimatePresence>
       </div>
