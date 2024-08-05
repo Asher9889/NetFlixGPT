@@ -26,7 +26,6 @@ const EmailBox = () => {
   }
 
   function validateEmailString() {
-    console.log("i am executing");
     if (inputValue === "") {
       setShowEmptyInput(true);
     } else {

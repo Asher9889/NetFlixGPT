@@ -4,7 +4,6 @@ import { addTrailerMovie } from "../utils/store/moviesSlice";
 import { useEffect } from "react";
 
 const useMovieVideo = (id) => {
-  console.log(id);
   const dispatch = useDispatch();
 
   useEffect(() => {

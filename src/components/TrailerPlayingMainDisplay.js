@@ -8,7 +8,6 @@ import { IoInformationCircleOutline } from "react-icons/io5";
 
 const TrailerPlayingMainDisplay = () => {
   const index = useMemo(() => generateNumber(), []);
-  console.log(index);
 
   // getting movie from store
   const movie = useSelector((store) => store.movies?.movies[index]);
@@ -22,9 +21,9 @@ const TrailerPlayingMainDisplay = () => {
   const video = useSelector((store) => store.movies.trailerMovie[0]);
 
   return (
-    <div className="w-full aspect-video bg-pink-800 overflow-hidden">
+    <div className="w-full h-full  aspect-video bg-pink-800 ">
         <ReactPlayer
-        className="scale-[1.5]" 
+        className="scale-[1.4]" 
         width="100%"
         height="100%"
         url={`https://www.youtube.com/watch?v=${video?.key}`}

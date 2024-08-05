@@ -1,1 +1,18 @@
 
+/* Scroll Bar Css */
+.scrollbar::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .scrollbar::-webkit-scrollbar-track {
+    /* background: transparent; */
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px;
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
