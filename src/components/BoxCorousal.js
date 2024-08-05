@@ -1,13 +1,19 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import img from "../assests/signInBg.jpg";
+import { IMDB_IMG_URL } from "../utils/constant";
 
-const BoxCorousal = () => {
+const BoxCorousal = ({ movie }) => {
+
+
+  let imgUrl = IMDB_IMG_URL + movie.poster_path;
+
+  console.log(imgUrl);
   return (
-    <div>
+    <div className="shrink-0 h-64">
       <LazyLoadImage
-        // alt={image.alt}
-        // height={image.height}
-        // src={image.src} // use normal <img> attributes as props
+        className="h-full object-cover rounded-md "
+        src={imgUrl} // use normal <img> attributes as props
         // width={image.width}
       />
       {/* <span>{image.caption}</span> */}

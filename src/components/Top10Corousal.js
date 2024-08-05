@@ -6,7 +6,7 @@ const Top10Corousal = ({svg, poster_path}) => {
 
   return (
 
-      <div className="flex w-[350px] h-30 lg:w-96 flex-row  items-bottom cursor-pointer">
+      <div className=" flex w-[350px] h-30 lg:w-96 flex-row  items-bottom cursor-pointer">
         <SVG
           src={svg}
           className=" w-[170px] lg:h-[170px] lg:w-[250px]"
