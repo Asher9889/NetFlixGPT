@@ -1,6 +1,8 @@
+
+
 const TrailerPlayingSecondaryDisplay = ()=>{
     return (
-        <div className="h-[100vh] bg-red-500">TrailerPlayingSecondaryDisplay</div>
+        <div className="">TrailerPlayingSecondaryDisplay</div>
     )
 }
 

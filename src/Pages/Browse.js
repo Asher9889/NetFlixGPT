@@ -4,7 +4,6 @@ import TrailerPlayingSecondaryDisplay from "../components/TrailerPlayingSecondar
 import useAuthStateChange from "../hooks/useAuthStateChange";
 import useNowPlaying from "../hooks/useNowPlaying";
 
-
 const Browse = () => {
   // hook constantly checking user loggedIn or not
   useAuthStateChange();
@@ -12,21 +11,18 @@ const Browse = () => {
   //  loads all movies in Store
   useNowPlaying();
 
- 
-
-
   return (
-    <div className="w-screen relative bg-red-500">
-      <div className="relative z-10">
+    <div className="w-full h-[200vh] relative overflow-x-hidden">
+      <div className="relative z-20">
         <BrowserHeader />
       </div>
 
-      <div className="w-full h-[100vh] absolute top-0 overflow-x-hidden ">
+      <div className="w-full absolute top-0  bg-blue-800 overflow-hidden">
         <TrailerPlayingMainDisplay />
-        <TrailerPlayingSecondaryDisplay />
-
       </div>
-      
+      <div className="w-full h-[100vh] absolute bottom-0  bg-green-800 overflow-hidden">
+        <TrailerPlayingSecondaryDisplay />
+      </div>
     </div>
   );
 };
