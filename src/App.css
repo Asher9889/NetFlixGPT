@@ -1,11 +1,13 @@
 
 /* Scroll Bar Css */
 .scrollbar::-webkit-scrollbar {
-    width: 10px;
+    /* width: 6px; */
+    height: 10px;
   }
   
   .scrollbar::-webkit-scrollbar-track {
-    /* background: transparent; */
+    background: transparent;
+    display: hidden;
   }
   
   .scrollbar::-webkit-scrollbar-thumb {
@@ -16,3 +18,7 @@
   .scrollbar::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+.secondary-bg{
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0.9114496140252977) 0%, rgba(20,20,20,1) 27%);}

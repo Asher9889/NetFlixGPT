@@ -15,18 +15,21 @@ const Browse = () => {
   // loads top 10 trending movie in store
   useTop10Movie();
 
+
   return (
-    <div className="w-full relative  bg-red-800 ">
+    <div className="w-full relative bg-zinc-900">
       <div className="relative z-20">
         <BrowserHeader />
       </div>
 
-      <div className="w-full z-20  absolute top-0  bg-blue-800 overflow-hidden">
+      <div className="w-full   absolute top-0  overflow-hidden bg-black pb-16">
         <TrailerPlayingMainDisplay />
+        <div className="w-full relative z-20 -bottom-[8vh]  lg:-bottom-4  secondary-bg bg-gradient-b from-zinc-900">
+          
+          <TrailerPlayingSecondaryDisplay />
+        </div>
       </div>
-      <div className="w-full h-[30vh] top-[50vh] xs:top-[30vh] sm:top-[50vh] md:top-[60vh] lg:top-[80vh]  relative z-20 bottom-0  bg-green-800">
-        <TrailerPlayingSecondaryDisplay />
-      </div>
+      
     </div>
   );
 };
