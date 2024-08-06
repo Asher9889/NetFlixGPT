@@ -28,7 +28,7 @@ const Browse = () => {
 
       <div className="w-full    absolute top-0  overflow-hidden bg-black pb-16">
         <TrailerPlayingMainDisplay />
-        <div className="w-full relative z-20 -bottom-[8vh]  lg:-bottom-4  secondary-bg bg-gradient-b from-zinc-900 ">
+        <div className="w-full relative z-20 top-[5vh] lg:-top-[24vh]  lg:-bottom-4  bg-gradient-b from-zinc-900 ">
           
           <TrailerPlayingSecondaryDisplay />
         </div>

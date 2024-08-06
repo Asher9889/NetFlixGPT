@@ -39,9 +39,8 @@
 
 
 .blur{
-    background: rgb(0,0,0);
-    background: linear-gradient(180deg, rgba(0,0,0,0.7349790257900035) 100%, rgba(0,0,0,0) 100%);
-}
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,0.7938025552017682) 0%, rgba(20,20,20,1) 46%);}
 
 @keyframes spinner {
   0%{

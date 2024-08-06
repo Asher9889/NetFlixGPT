@@ -20,7 +20,7 @@ const TrailerPlayingMainDisplay = () => {
   const video = useSelector((store) => store.movies.trailerMovie[0]);
 
   return (
-    <div className="w-full h-full  aspect-video bg-green-800">
+    <div className="w-full lg:85vh h-full  aspect-video bg-green-800 ">
       <ReactPlayer
         className="scale-[1.4]"
         width="100%"
@@ -32,8 +32,8 @@ const TrailerPlayingMainDisplay = () => {
         controls="false"
         volume="0.5"
       />
-      <div className="absolute  left-[4%] sm:h-[50vh] w-[50vw] sm:w-[35vw] top-[30%] text-white ">
-        <h1 className="relative text-sm leading-3 lg:leading-[3rem] lg:text-[3rem]  font-netFlixBd ">
+      <div className="absolute w-[40%] left-[4%] top-[8%] lg:top-[20%] text-white">
+        <h1 className=" text-sm  lg:leading-[3rem] lg:text-[3rem]  font-netFlixBd ">
           {movie?.original_title}
         </h1>
         <p className="hidden mt-2 md:block font-netFliRg text-sm lg:text-[1rem] ">

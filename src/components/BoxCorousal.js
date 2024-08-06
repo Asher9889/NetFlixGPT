@@ -7,6 +7,7 @@ import { FaPlay } from "react-icons/fa";
 import { LuPlus } from "react-icons/lu";
 import { IoIosThumbsUp } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa6";
+import dayjs from "dayjs";
 
 const BoxCorousal = ({
   cardIndex,
@@ -46,7 +47,7 @@ const BoxCorousal = ({
       onMouseLeave={handleOnMouseLeave}
       className="relative shrink-0"
     >
-      <div className="shrink-0  bg-red-500 h-auto">
+      <div className="shrink-0  h-auto cursor-pointer">
         <LazyLoadImage
           className="h-full w-52 object-cover rounded-md"
           src={imgUrl} // use normal <img> attributes as props
@@ -79,23 +80,27 @@ const BoxCorousal = ({
                 alt="video image"
               />
             </div>
-            <div className="flex flex-col p-[2%] px-[4%]">
+            <div className="flex flex-col gap-2 p-[2%] px-[4%]">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-row   gap-2">
-                  <span className=" flex justify-center items-center bg-white h-8 w-8  p-0 rounded-full text-black">
+                  <span className=" flex justify-center items-center bg-white h-8 w-8  p-0 rounded-full text-black cursor-pointer">
                     <FaPlay />
                   </span>
-                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl">
+                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
                     <LuPlus />
                   </span>
-                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl">
+                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
                     <IoIosThumbsUp />
                   </span>
                 </div>
 
-                <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl">
+                <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
                   <FaChevronDown />
                 </span>
+              </div>
+              <div >
+                <h1>{movie.original_title}</h1>
+                <h1 className="text-lg font-netFlixMd">Release Date: {dayjs(movie?.release_date).format("DD-MMM-YYYY")}</h1>
               </div>
             </div>
           </motion.div>
