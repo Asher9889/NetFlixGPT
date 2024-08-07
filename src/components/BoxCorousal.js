@@ -1,111 +1,71 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import img from "../assests/signInBg.jpg";
-import { IMDB_IMG_URL } from "../utils/constant";
-import { FaPlay } from "react-icons/fa";
-import { LuPlus } from "react-icons/lu";
-import { IoIosThumbsUp } from "react-icons/io";
-import { FaChevronDown } from "react-icons/fa6";
-import dayjs from "dayjs";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import BoxCorousalCard from "./BoxCorousalCard";
+import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
+import { PiChatTeardropTextFill } from "react-icons/pi";
 
-const BoxCorousal = ({
-  cardIndex,
-  movie,
-  index,
-  onMouseOverChangeCardIndex,
-  onMouseOutChnageCardIndex,
-}) => {
-  const [showDetails, setShowDetails] = useState(false);
-  const [isHoverActive, setIsHoverActive] = useState(false);
+const BoxCorousal = () => {
+  const [cardIndex, setCardIndex] = useState(null);
+  const scrollRef = useRef();
+  const cardRef = useRef();
 
-  let imgUrl = IMDB_IMG_URL + movie.poster_path;
-  let backdropUrl = IMDB_IMG_URL + movie.backdrop_path;
-  let name = movie.original_title;
+  
 
-  const timer = useRef(null);
+  const popularMovies = useSelector(
+    (store) => store.popularMovies?.popularMovies
+  );
 
-  useEffect(() => {
-    return () => clearTimeout(timer.current); // Cleanup timer on component unmount
-  }, []);
 
-  function handleOnMouseEnter() {
-    onMouseOverChangeCardIndex();
-    // setIsHoverActive(true)
-    timer.current = setTimeout(() => setShowDetails(true), 500);
+
+  function onMouseOverChangeCardIndex(index) {
+    setCardIndex(index);
   }
-  function handleOnMouseLeave() {
-    onMouseOutChnageCardIndex();
-    // setIsHoverActive(false);
-    clearTimeout(timer.current);
-    setShowDetails(false);
+
+  function onMouseOutChnageCardIndex() {
+    setCardIndex(null);
+    console.log("set null in index");
+  }
+
+  function handleRightScrollClick(){
+    scrollRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+  }
+  function handleLeftScrollClick(){
+    scrollRef.current.scrollBy({ left: -500, behavior: 'smooth' });
   }
 
   return (
-    <div
-      onMouseEnter={handleOnMouseEnter}
-      onMouseLeave={handleOnMouseLeave}
-      className="relative shrink-0"
-    >
-      <div className="shrink-0  h-auto cursor-pointer">
-        <LazyLoadImage
-          className="h-full w-52 object-cover rounded-md"
-          src={imgUrl} // use normal <img> attributes as props
-          // width={image.width}
-        />
-        {/* <span>{image.caption}</span> */}
+    <div className="relative   pt-[2%] ">
+      <div onClick={handleLeftScrollClick} onMouseEnter={()=> cardRef.current.handleOnMouseLeave()} className="absolute z-20  left-0 bottom-[8px] w-[3.5%] h-[70%]  w-20 glass-effect cursor-pointer " >
+        <span className="flex flex-row justify-center items-center w-full h-full">
+          <MdOutlineKeyboardArrowLeft className="text-4xl text-white"/>
+        </span>
       </div>
-      <AnimatePresence>
-        {showDetails && cardIndex == +index && (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1.3, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
-            transition={{
-              scale: {
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-              },
-              opacity: {
-                duration: 0.3,
-              },
-            }}
-            className={`absolute inset-0 flex  w-72 z-30  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd`}
-          >
-            <div>
-              <img
-                className="w-72 object-cover"
-                src={backdropUrl}
-                alt="video image"
+      <div>
+        <h1 className="w-fit px-[4%] text-white font-netFlixMd text-[1.4rem] lg:text-[2rem]">
+          Popular Movies
+        </h1>
+        <div ref={scrollRef} className="scrollbar  px-[4%]   flex flex-row gap-4 flex-nowrap overflow-x-scroll  pt-[4%] bg-yellow-900">
+          {popularMovies &&
+            popularMovies.map((movie, index) => (
+              <BoxCorousalCard
+              ref={cardRef}
+                onMouseOutChnageCardIndex={onMouseOutChnageCardIndex}
+                onMouseOverChangeCardIndex={() =>
+                  onMouseOverChangeCardIndex(index)
+                }
+                movie={movie}
+                index={index}
+                cardIndex={cardIndex}
               />
-            </div>
-            <div className="flex flex-col gap-2 p-[2%] px-[4%]">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row   gap-2">
-                  <span className=" flex justify-center items-center bg-white h-8 w-8  p-0 rounded-full text-black cursor-pointer">
-                    <FaPlay />
-                  </span>
-                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
-                    <LuPlus />
-                  </span>
-                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
-                    <IoIosThumbsUp />
-                  </span>
-                </div>
-
-                <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
-                  <FaChevronDown />
-                </span>
-              </div>
-              <div >
-                <h1>{movie.original_title}</h1>
-                <h1 className="text-lg font-netFlixMd">Release Date: {dayjs(movie?.release_date).format("DD-MMM-YYYY")}</h1>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            ))}
+        </div>
+      </div>
+      <div onClick={handleRightScrollClick} className="absolute z-20  right-0 bottom-[8px] w-[3.5%] h-[70%]  w-20 glass-effect cursor-pointer " >
+        <span className="flex flex-row justify-center items-center w-full h-full">
+          <MdOutlineKeyboardArrowRight className="text-4xl text-white"/>
+        </span>
+      </div>
     </div>
   );
 };

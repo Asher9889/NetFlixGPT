@@ -20,12 +20,12 @@ const TrailerPlayingMainDisplay = () => {
   const video = useSelector((store) => store.movies.trailerMovie[0]);
 
   return (
-    <div className="w-full lg:85vh h-full  aspect-video bg-green-800 ">
+    <section className="w-full lg:85vh h-full  aspect-video bg-green-800 ">
       <ReactPlayer
         className="scale-[1.4]"
+        url={`https://www.youtube.com/watch?v=${video?.key}`}
         width="100%"
         height="100%"
-        url={`https://www.youtube.com/watch?v=${video?.key}`}
         loop="true"
         playing={true}
         muted={true}
@@ -50,7 +50,7 @@ const TrailerPlayingMainDisplay = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

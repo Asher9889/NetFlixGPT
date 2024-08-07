@@ -21,21 +21,21 @@ const Browse = () => {
 
 
   return (
-    <div className="w-full h-auto relative bg-zinc-900">
-      <div className="relative z-20">
+    <section className="w-full h-auto relative">
+      <header className="relative z-20">
         <BrowserHeader />
-      </div>
+      </header>
 
-      <div className="w-full    absolute top-0  overflow-hidden bg-black pb-16">
+      <main className="w-full    absolute top-0  overflow-hidden mb-6">
         <TrailerPlayingMainDisplay />
-        <div className="w-full relative z-20 top-[5vh] lg:-top-[24vh]  lg:-bottom-4  bg-gradient-b from-zinc-900 ">
+        <section className="w-full relative z-20 top-[5vh] lg:-top-[28vh] ">
           
           <TrailerPlayingSecondaryDisplay />
-        </div>
+        </section>
         
-      </div>
+      </main>
       
-    </div>
+    </section>
   );
 };
 
