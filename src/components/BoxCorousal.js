@@ -24,21 +24,21 @@ const BoxCorousal = () => {
 
   function onMouseOutChnageCardIndex() {
     setCardIndex(null);
-    console.log("set null in index");
+    // console.log("set null in index");
   }
 
   function handleRightScrollClick(){
-    scrollRef.current.scrollBy({ left: 500, behavior: 'smooth' });
+    scrollRef.current.scrollBy({ left: 350, behavior: 'smooth' });
   }
   function handleLeftScrollClick(){
-    scrollRef.current.scrollBy({ left: -500, behavior: 'smooth' });
+    scrollRef.current.scrollBy({ left: -350, behavior: 'smooth' });
   }
 
   return (
-    <div className="relative   pt-[2%] ">
-      <div onClick={handleLeftScrollClick} onMouseEnter={()=> cardRef.current.handleOnMouseLeave()} className="absolute z-20  left-0 bottom-[8px] w-[3.5%] h-[70%]  w-20 glass-effect cursor-pointer " >
+    <div className="relative   pt-[2%] " >
+      <div onClick={handleLeftScrollClick} onMouseEnter={()=>cardRef.current.handleOnMouseLeave()} className="absolute z-20  left-0 bottom-[8px] w-[3.5%] h-[70%]  w-20 glass-effect cursor-pointer " >
         <span className="flex flex-row justify-center items-center w-full h-full">
-          <MdOutlineKeyboardArrowLeft className="text-4xl text-white"/>
+          <MdOutlineKeyboardArrowLeft className="text-4xl hover:text-5xl text-white"/>
         </span>
       </div>
       <div>
@@ -61,9 +61,9 @@ const BoxCorousal = () => {
             ))}
         </div>
       </div>
-      <div onClick={handleRightScrollClick} className="absolute z-20  right-0 bottom-[8px] w-[3.5%] h-[70%]  w-20 glass-effect cursor-pointer " >
+      <div onClick={handleRightScrollClick} onMouseEnter={()=>cardRef.current.handleOnMouseLeave()} className="absolute z-20  right-0 bottom-[8px] w-[3.5%] h-[70%]  w-20 glass-effect cursor-pointer " >
         <span className="flex flex-row justify-center items-center w-full h-full">
-          <MdOutlineKeyboardArrowRight className="text-4xl text-white"/>
+          <MdOutlineKeyboardArrowRight className="text-4xl hover:text-5xl text-white"/>
         </span>
       </div>
     </div>

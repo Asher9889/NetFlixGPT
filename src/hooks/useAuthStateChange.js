@@ -10,7 +10,7 @@ function useAuthStateChange() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        navigate('/browse')
+        
       } else {
         navigate("/")
       }

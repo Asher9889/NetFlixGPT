@@ -1,4 +1,11 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import img from "../assests/signInBg.jpg";
@@ -8,37 +15,50 @@ import { LuPlus } from "react-icons/lu";
 import { IoIosThumbsUp } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa6";
 import dayjs from "dayjs";
-import ReactPlayer from "react-player";
+import usePopularMovieVideo from "../hooks/usePopularMovieVideo";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const BoxCorousalCard = forwardRef(({
-  cardIndex,
-  movie,
-  index,
-  onMouseOverChangeCardIndex,
-  onMouseOutChnageCardIndex,
-},ref)=> {
-
-  const childRef = useRef()
+const BoxCorousalCard = forwardRef(
+  (
+    {
+      cardIndex,
+      movie,
+      index,
+      onMouseOverChangeCardIndex,
+      onMouseOutChnageCardIndex,
+    },
+    ref
+  ) => {
+    const navigate = useNavigate();
+    const childRef = useRef();
     const [showDetails, setShowDetails] = useState(false);
     const [isVideoActive, setIsVideoActive] = useState(false);
+    const [isMouseEnter, setIsMouseEnter] = useState(false);
 
+    // addind card videos into store
+    usePopularMovieVideo(movie.id);
 
-    useImperativeHandle(ref, ()=>(
-      {
-      handleOnMouseLeave
-      }
-    ))
-  
-  
-  
+    // subscribing store
+    const videos = useSelector(
+      (store) => store.popularMovies?.popularMoviesVideos[index]
+    );
+    const trailer = videos?.filter((video) => video.type === "Trailer");
+
+    // console.log("Videos : ", videos)
+
+    useImperativeHandle(ref, () => ({
+      handleOnMouseLeave,
+    }));
+
     let imgUrl = IMDB_IMG_URL + movie.poster_path;
     let backdropUrl = IMDB_IMG_URL + movie.backdrop_path;
-    let videoUrl = movie.original_title;
-  
+    let movieID = console.log(movie.id);
+
     const timer = useRef(null);
     const videoTimer = useRef(null);
-  
-  
+
     function detectMob() {
       const toMatch = [
         /Android/i,
@@ -49,50 +69,48 @@ const BoxCorousalCard = forwardRef(({
         /BlackBerry/i,
         /Windows Phone/i,
       ];
-  
+
       return toMatch.some((toMatchItem) => {
         return navigator.userAgent.match(toMatchItem);
       });
     }
-  
-    function handleOnMouseEnter() {
-  
+
+    const handleOnMouseEnter = useCallback(() => {
+      setShowDetails(false);
+      setIsVideoActive(false);
+      clearTimeout(timer.current);
+      clearTimeout(videoTimer.current);
       onMouseOverChangeCardIndex();
       // setIsHoverActive(true)
       timer.current = setTimeout(() => {
-        setShowDetails(true)
+        setShowDetails(true);
         // console.log("show details :", true)
       }, 1000);
-      videoTimer.current = setTimeout(()=> {
-        setIsVideoActive(true)
+      videoTimer.current = setTimeout(() => {
+        setIsVideoActive(true);
         // console.log("Show video : ", true)
-      }, 2000)
-    }
-    
-    function handleOnMouseLeave() {
-      
-      console.log("Mouse Leave")
+      }, 2000);
+    }, [onMouseOverChangeCardIndex]);
+
+    const handleOnMouseLeave = useCallback(() => {
       setIsVideoActive(false);
       setShowDetails(false);
       onMouseOutChnageCardIndex();
-      // setIsHoverActive(false);
       clearTimeout(timer.current);
-      clearTimeout(videoTimer.current)
-    }
-  
+      clearTimeout(videoTimer.current);
+      console.log("Mouse Leave");
+      // setIsHoverActive(false);
+    }, [onMouseOverChangeCardIndex]);
+
     return (
-      <div
-        
-        className="relative shrink-0 bg-red-900">
-        <div 
+      <div className="relative shrink-0  bg-green-900">
+        <div
+          className="shrink-0  h-auto cursor-pointer bg-blue-800"
           onMouseEnter={handleOnMouseEnter}
-          
-        
-          className="shrink-0  h-auto cursor-pointer ">
+        >
           <LazyLoadImage
             className="h-full w-40 lg:w-52 object-cover rounded-md"
-            src={imgUrl} // use normal <img> attributes as props
-            // width={image.width}
+            src={imgUrl}
           />
           {/* <span>{image.caption}</span> */}
         </div>
@@ -113,25 +131,31 @@ const BoxCorousalCard = forwardRef(({
                 },
               }}
               onMouseLeave={handleOnMouseLeave}
-              className={`absolute inset-0 -left-6 flex  w-72  z-50  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd`}
+              className={`absolute inset-0  -left-10 flex  w-72  z-50  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd`}
             >
               <div>
-                {!isVideoActive ? 
-                <img
-                className="w-72 object-cover"
-                src={backdropUrl}
-                alt="video image"
-                /> : 
-                <iframe 
-                // width="100%"
-                  className="w-full"
-                  src="https://www.youtube.com/embed/tQ3Aahb_PDE" 
-                  loading="lazy"
-                  title="YouTube video player" frameborder="0" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                // <iframe width="100%"  src="https://www.youtube.com/watch?tQ3Aahb_PDE" title="YouTube video player" frameborder="0" allow=" autoplay;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
+                {
+                  !isVideoActive ? (
+                    <img
+                      className="w-72 object-cover"
+                      src={backdropUrl}
+                      alt="video image"
+                    />
+                  ) : (
+                    <iframe
+                      // width="100%"
+                      className="w-full"
+                      src={`https://www.youtube.com/embed/${[trailer[0].key]}`}
+                      loading="lazy"
+                      title="YouTube video player"
+                      frameborder="0"
+                      allow="autoplay"
+                      referrerpolicy="strict-origin-when-cross-origin"
+                      allowfullscreen
+                    ></iframe>
+                  )
+                  // <iframe width="100%"  src="https://www.youtube.com/watch?tQ3Aahb_PDE" title="YouTube video player" frameborder="0" allow=" autoplay;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen />
                 }
-                  
-                
               </div>
               <div className="flex flex-col h-48 gap-2 p-[2%] px-[4%]">
                 <div className="flex flex-row justify-between">
@@ -146,9 +170,11 @@ const BoxCorousalCard = forwardRef(({
                       <IoIosThumbsUp />
                     </span>
                   </div>
-  
+
                   <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
-                    <FaChevronDown />
+                    <Link to={`/browse/video/${index}`}>
+                      <FaChevronDown />
+                    </Link>
                   </span>
                 </div>
                 <div>
@@ -164,7 +190,7 @@ const BoxCorousalCard = forwardRef(({
         </AnimatePresence>
       </div>
     );
-  
-});
+  }
+);
 
 export default BoxCorousalCard;

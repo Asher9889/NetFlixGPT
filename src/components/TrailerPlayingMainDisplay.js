@@ -26,11 +26,11 @@ const TrailerPlayingMainDisplay = () => {
         url={`https://www.youtube.com/watch?v=${video?.key}`}
         width="100%"
         height="100%"
-        loop="true"
+        loop={true}
         playing={true}
         muted={true}
-        controls="false"
-        volume="0.5"
+        controls={false}
+        volume={0.5}
       />
       <div className="absolute w-[40%] left-[4%] top-[8%] lg:top-[20%] text-white">
         <h1 className=" text-sm  lg:leading-[3rem] lg:text-[3rem]  font-netFlixBd ">

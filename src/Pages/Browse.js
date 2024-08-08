@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import BrowserHeader from "../components/BrowserHeader";
 import TrailerPlayingMainDisplay from "../components/TrailerPlayingMainDisplay";
 import TrailerPlayingSecondaryDisplay from "../components/TrailerPlayingSecondaryDisplay";
@@ -28,12 +29,18 @@ const Browse = () => {
 
       <main className="w-full    absolute top-0  overflow-hidden mb-6">
         <TrailerPlayingMainDisplay />
+          
+        <Outlet />
+         
         <section className="w-full relative z-20 top-[5vh] lg:-top-[28vh] ">
           
           <TrailerPlayingSecondaryDisplay />
         </section>
+
+        
         
       </main>
+      
       
     </section>
   );

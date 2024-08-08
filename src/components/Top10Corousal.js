@@ -8,14 +8,14 @@ const Top10Corousal = ({ dataArray }) => {
   // const [pixelValue, setPixelValue] = useState(0)
 
   const scrollRef = useRef();
-  console.log(scrollRef)
+  // console.log(scrollRef)
 
   function handleLeftScroll(){
-    console.log("clicked")
+    // console.log("clicked")
     scrollRef.current.scrollBy({ left: -500, behavior: 'smooth' });
   }
   function handleRightScroll(){
-    console.log("clicked")
+    // console.log("clicked")
     scrollRef.current.scrollBy({ left: 500, behavior: 'smooth' });
   }
 
