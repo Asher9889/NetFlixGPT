@@ -20,19 +20,18 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const BoxCorousalCard = forwardRef(
-  (
+const BoxCorousalCard = forwardRef((
     {
       cardIndex,
       movie,
       index,
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
-    },
-    ref
-  ) => {
+    },ref) => {
+
     const navigate = useNavigate();
     const childRef = useRef();
+
     const [showDetails, setShowDetails] = useState(false);
     const [isVideoActive, setIsVideoActive] = useState(false);
     const [isMouseEnter, setIsMouseEnter] = useState(false);
@@ -44,9 +43,9 @@ const BoxCorousalCard = forwardRef(
     const videos = useSelector(
       (store) => store.popularMovies?.popularMoviesVideos[index]
     );
-    const trailer = videos?.filter((video) => video.type === "Trailer");
+    const trailer = videos?.filter((video) => (video.type === "Trailer"));
 
-    // console.log("Videos : ", videos)
+   
 
     useImperativeHandle(ref, () => ({
       handleOnMouseLeave,
@@ -59,23 +58,18 @@ const BoxCorousalCard = forwardRef(
     const timer = useRef(null);
     const videoTimer = useRef(null);
 
-    function detectMob() {
-      const toMatch = [
-        /Android/i,
-        /webOS/i,
-        /iPhone/i,
-        /iPad/i,
-        /iPod/i,
-        /BlackBerry/i,
-        /Windows Phone/i,
-      ];
-
-      return toMatch.some((toMatchItem) => {
-        return navigator.userAgent.match(toMatchItem);
-      });
-    }
+    let isMobile;
+    useEffect(()=>{
+      isMobile = isMobileDevice();
+    }, [])
+    console.log(isMobile)
+    // checking device is mobile or other
+    function isMobileDevice() {
+      return /Mobi|Android/i.test(navigator.userAgent);
+  }
 
     const handleOnMouseEnter = useCallback(() => {
+      if(!isMobile) return;
       setShowDetails(false);
       setIsVideoActive(false);
       clearTimeout(timer.current);
@@ -93,6 +87,7 @@ const BoxCorousalCard = forwardRef(
     }, [onMouseOverChangeCardIndex]);
 
     const handleOnMouseLeave = useCallback(() => {
+      if(!isMobile) return;
       setIsVideoActive(false);
       setShowDetails(false);
       onMouseOutChnageCardIndex();
@@ -102,10 +97,14 @@ const BoxCorousalCard = forwardRef(
       // setIsHoverActive(false);
     }, [onMouseOverChangeCardIndex]);
 
+    function handleCardClick(){
+      navigate(`/browse/video/${index}`)
+    }
+    // console.log(videos)
     return (
-      <div className="relative shrink-0  bg-green-900">
+      <div onClick={handleCardClick} className="relative shrink-0  py-6 ">
         <div
-          className="shrink-0  h-auto cursor-pointer bg-blue-800"
+          className="shrink-0  h-auto cursor-pointer"
           onMouseEnter={handleOnMouseEnter}
         >
           <LazyLoadImage
@@ -131,7 +130,7 @@ const BoxCorousalCard = forwardRef(
                 },
               }}
               onMouseLeave={handleOnMouseLeave}
-              className={`absolute inset-0  -left-10 flex  w-72  z-50  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd`}
+              className={`absolute top-8 -left-10 flex  h-72  z-[100]  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd drop-shadow-xl rounded-md`}
             >
               <div>
                 {
@@ -145,7 +144,7 @@ const BoxCorousalCard = forwardRef(
                     <iframe
                       // width="100%"
                       className="w-full"
-                      src={`https://www.youtube.com/embed/${[trailer[0].key]}`}
+                      src={`https://www.youtube.com/embed/${trailer[0].key}`}
                       loading="lazy"
                       title="YouTube video player"
                       frameborder="0"
@@ -179,7 +178,7 @@ const BoxCorousalCard = forwardRef(
                 </div>
                 <div>
                   <h1>{movie.original_title}</h1>
-                  <h1 className="text-lg font-netFlixMd">
+                  <h1 className="text-md font-netFlixMd">
                     Release Date:{" "}
                     {dayjs(movie?.release_date).format("DD-MMM-YYYY")}
                   </h1>

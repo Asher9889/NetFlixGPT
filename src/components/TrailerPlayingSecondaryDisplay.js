@@ -17,15 +17,14 @@ const TrailerPlayingSecondaryDisplay = () => {
   usePopularMovie();
 
   return (
-    <div className="relative">
-      <div>
+    <div className="w-full relative bg-black top-0 lg:-top-[25vh]">
+      
         <Top10Corousal dataArray={dataArray} />
-      </div>
-      <div className="bg-gradient-to-b from-black to-[#1a1a1a]">
+     
+    
         <BoxCorousal />
-        {/* <BoxCorousal />
-        <BoxCorousal /> */}
-      </div>
+        
+     
     </div>
   );
 };

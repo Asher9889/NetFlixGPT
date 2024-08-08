@@ -21,22 +21,24 @@ const Top10Corousal = ({ dataArray }) => {
 
 
   return (
-    <div className="w-full h-full relative  pt-[10vh] bg-gradient-to-t from-black">
+    <div className="w-full h-full relative py-4 ">
+      <h1 className="px-[4%] text-white font-netFlixMd text-[1.4rem] lg:text-[2rem] pb-4">
+        Top 10 Movies Today
+      </h1>
+      
+      
       <div
         className="hidden md:block w-[4%]  flex flex-row justify-center items-center absolute z-30 left-0 bottom-0 text-4xl hover:text-5xl text-white glass-effect  cursor-pointer"
-        style={{ height: "calc(100% - 10vh)" }}
+        style={{ height: "80%" }}
       >
         <span onClick={handleLeftScroll} className="flex flex-row justify-center items-center h-full ">
           <MdOutlineKeyboardArrowLeft />
         </span>
       </div>
-
-      <div ref={scrollRef} className="w-full px-[4%] scrollbar flex flex-col gap-2 overflow-x-scroll">
-        <h1 className="absolute top-0  text-white font-netFlixMd text-[1.4rem] lg:text-[2rem] mb-2">
-          Top 10 Movies Today
-        </h1>
+      <div ref={scrollRef} className="w-full px-[4%] scrollbar flex flex-col gap-2 overflow-x-scroll ">
+        
         {/* iss div ko scroll krna hai */}
-        <div  className="w-full  flex flex-row flex-nowrap gap-4 items-bottom ">
+        <div  className="relative w-full  flex flex-row flex-nowrap gap-4 items-bottom ">
           {dataArray &&
             dataArray.map((item) => (
               <Top10Card svg={item.svg} poster_path={item.poster_path} />
@@ -46,7 +48,7 @@ const Top10Corousal = ({ dataArray }) => {
 
       <div onClick={handleRightScroll}
         className="hidden md:block w-[4%]  flex flex-row justify-center items-center absolute z-30 right-0 bottom-0 text-4xl hover:text-5xl text-white glass-effect  cursor-pointer"
-        style={{ height: "calc(100% - 10vh)" }}
+        style={{ height: "80%" }}
       >
         <span className="flex flex-row justify-center items-center h-full ">
           <MdOutlineKeyboardArrowRight />

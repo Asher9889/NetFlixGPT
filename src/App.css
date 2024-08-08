@@ -1,28 +1,25 @@
-
 /* Scroll Bar Css */
 .scrollbar::-webkit-scrollbar {
-    width: 0;
-    /* height: 10px; */
-  }
-  
-
-  
-  .scrollbar::-webkit-scrollbar-thumb {
-    display: none;
-  }
-  
-
-.secondary-bg{
-  background: rgb(0,0,0);
-  background: linear-gradient(180deg, rgba(0,0,0,0.9114496140252977) 0%, rgba(20,20,20,1) 27%);
+  width: 0;
+  /* height: 10px; */
 }
 
+.scrollbar::-webkit-scrollbar-thumb {
+  display: none;
+}
 
-.glass-effect{
-  background: rgba( 255, 255, 255, 0.15 );
-box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
-backdrop-filter: blur( 1px );
--webkit-backdrop-filter: blur( 1px );
-border-radius: 5px;
+.secondary-bg {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.9114496140252977) 0%,
+    rgba(20, 20, 20, 1) 27%
+  );
+}
 
+.glass-effect {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  border-radius: 5px;
 }
