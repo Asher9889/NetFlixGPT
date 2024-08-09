@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 import Top10Corousal from "./Top10Corousal";
 import { dataBinding } from "../utils/algoForDataBinding";
-
+import usePopularMoviesVideos from "../hooks/usePopularMoviesVideos";
 import BoxCorousal from "./BoxCorousal";
-
+import useNowPlayingVideos from "../hooks/useNowPlayingVideos";
 
 
 const TrailerPlayingSecondaryDisplay = () => {
@@ -15,8 +15,8 @@ const TrailerPlayingSecondaryDisplay = () => {
     dataArray = dataBinding(movies);
   }
 
-   // Now Playing movies from movies slice;
-   const nowPlayingMovies = useSelector((store)=> store.movies?.movies)
+  // Now Playing movies from movies slice;
+   const nowPlayingMovies = useSelector((store)=> store.nowPlaying?.nowPlayingMovies)
 
 
   // Popular movies
@@ -31,10 +31,10 @@ const TrailerPlayingSecondaryDisplay = () => {
       <Top10Corousal dataArray={dataArray} />
      
       {/* Now Playng Slice Data */}
-      {/* <BoxCorousal movieData={nowPlayingMovies}/> */}
+      {/* <BoxCorousal headingName="Now Playing Movies" moviesVideosData={useNowPlayingVideos} moviesData={nowPlayingMovies} storeLocation="nowPlaying?.nowPlayingMoviesVideos"/> */}
 
       {/* Popular Movies Slice Data*/}
-      <BoxCorousal  moviesData={popularMovies}/>
+      <BoxCorousal headingName="Popular Movies" moviesVideosData={usePopularMoviesVideos}  moviesData={popularMovies} storeLocation="popularMovies?.popularMoviesVideos"/>
 
         
      

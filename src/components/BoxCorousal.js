@@ -1,33 +1,28 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import BoxCorousalCard from "./BoxCorousalCard";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { PiChatTeardropTextFill } from "react-icons/pi";
 
-const BoxCorousal = ({moviesData , usePopularMoviesVideos}) => {
+const BoxCorousal = ({moviesData , moviesVideosData, headingName, storeLocation}) => {
   const [cardIndex, setCardIndex] = useState(null);
   const scrollRef = useRef();
   const cardRef = useRef();
 
  
- 
-    
- 
-  
-
   function onMouseOverChangeCardIndex(index) {
     setCardIndex(index);
   }
 
   function onMouseOutChnageCardIndex() {
     setCardIndex(null);
-    // console.log("set null in index");
   }
 
   function handleRightScrollClick() {
     scrollRef.current.scrollBy({ left: 350, behavior: "smooth" });
   }
+
+
   function handleLeftScrollClick() {
     scrollRef.current.scrollBy({ left: -350, behavior: "smooth" });
   }
@@ -36,7 +31,7 @@ const BoxCorousal = ({moviesData , usePopularMoviesVideos}) => {
     <div className="relative py-10">
       <div >
         <h1 className="w-fit px-[4%] text-white font-netFlixMd text-[1.4rem] lg:text-[2rem]">
-          Popular Movies
+          {headingName}
         </h1>
         <div
           ref={scrollRef}
@@ -54,15 +49,17 @@ const BoxCorousal = ({moviesData , usePopularMoviesVideos}) => {
           {moviesData &&
             moviesData.map((movie, index) => (
               <BoxCorousalCard
-              key={index}
+                key={index}
                 ref={cardRef}
                 onMouseOutChnageCardIndex={onMouseOutChnageCardIndex}
                 onMouseOverChangeCardIndex={() =>
                   onMouseOverChangeCardIndex(index)
                 }
+                moviesVideosData={moviesVideosData}
                 movie={movie}
                 index={index}
                 cardIndex={cardIndex}
+                storeLocation={storeLocation}
               />
             ))}
           <div

@@ -1,7 +1,6 @@
 import React, {
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -17,21 +16,21 @@ import dayjs from "dayjs";
 import { useDispatch, useSelector } from "react-redux";
 import { addWindowHeight } from "../utils/store/appInfoSlice";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import useIsMobileOrdesktop from "../hooks/useIsMobileOrDesktop";
-import usePopularMoviesVideos from "../hooks/usePopularMoviesVideos";
+import get from "lodash.get";
+// import usePopularMoviesVideos from "../hooks/usePopularMoviesVideos";
 
-const BoxCorousalCard = forwardRef(
-  (
+const BoxCorousalCard = forwardRef((
     {
       cardIndex,
       movie,
       index,
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
-    },
-    ref
-  ) => {
+      moviesVideosData,
+      storeLocation
+    },ref) => {
+
     const navigate = useNavigate();
     const childRef = useRef();
     const dispatch = useDispatch();
@@ -47,13 +46,13 @@ const BoxCorousalCard = forwardRef(
     const isMobile = useIsMobileOrdesktop();
 
     // addind card videos into store
-  
-      usePopularMoviesVideos(movie?.id);
-    
-
+    moviesVideosData(movie?.id);
     // subscribing store
+    // const videos = useSelector(
+    //   (store) => store && store.popularMovies?.popularMoviesVideos[index]
+    // );
     const videos = useSelector(
-      (store) => store.popularMovies?.popularMoviesVideos[index]
+      (store) =>  get(store, `${storeLocation}[${index}]`, {})
     );
     const trailer = videos?.filter((video) => video.type === "Trailer");
 
@@ -71,14 +70,11 @@ const BoxCorousalCard = forwardRef(
       clearTimeout(timer.current);
       clearTimeout(videoTimer.current);
       onMouseOverChangeCardIndex();
-      // setIsHoverActive(true)
       timer.current = setTimeout(() => {
         setShowDetails(true);
-        // console.log("show details :", true)
       }, 1000);
       videoTimer.current = setTimeout(() => {
         setIsVideoActive(true);
-        // console.log("Show video : ", true)
       }, 2000);
     }, [onMouseOverChangeCardIndex]);
 
@@ -89,8 +85,6 @@ const BoxCorousalCard = forwardRef(
       onMouseOutChnageCardIndex();
       clearTimeout(timer.current);
       clearTimeout(videoTimer.current);
-      // console.log("Mouse Leave");
-      // setIsHoverActive(false);
     }, [onMouseOverChangeCardIndex]);
 
     function handleCardClick() {
