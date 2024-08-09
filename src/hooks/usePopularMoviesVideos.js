@@ -1,13 +1,16 @@
 import { useDispatch } from "react-redux";
-import { addMoviesVideos } from "../utils/store/popularMovieSlice";
+import { addMoviesVideos, removeAddMoviesVideos } from "../utils/store/popularMovieSlice";
 import { options } from "../utils/constant";
 import { useEffect } from "react";
 
-const usePopularMovieVideo = (id) => {
+const usePopularMoviesVideos  = (id) => {
   const dispatch = useDispatch();
 
   useEffect(()=>{
     fetchVideos();
+    return ()=>{
+      dispatch(removeAddMoviesVideos);
+    }
   }, [])
   async function fetchVideos() {
     const res = await fetch(
@@ -20,4 +23,4 @@ const usePopularMovieVideo = (id) => {
 };
 
 
-export default usePopularMovieVideo;
+export default usePopularMoviesVideos;

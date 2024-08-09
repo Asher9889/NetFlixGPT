@@ -1,13 +1,14 @@
 import { options } from "../utils/constant";
 import { useDispatch } from "react-redux";
-import { addTrailerMovie } from "../utils/store/moviesSlice";
+import { addTrailerMovie } from "../utils/store/nowPlayingSlice";
 import { useEffect } from "react";
 
-const useMovieVideo = (id) => {
+const useFrontTrailerVideo = (id) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (id !== undefined) {
+      console.log("I am useEffect")
       findVideos();
     }
   }, [id]);
@@ -23,6 +24,8 @@ const useMovieVideo = (id) => {
       const video = data?.results?.filter(
         (video) => video.type === "Trailer"
       );
+      console.log(video)
+      console.log("Trailer Disptach Called")
       dispatch(addTrailerMovie(video));
     } catch (error) {
       console.log("error during useMovieHook fetch call");
@@ -30,4 +33,4 @@ const useMovieVideo = (id) => {
   }
 };
 
-export default useMovieVideo;
+export default useFrontTrailerVideo;

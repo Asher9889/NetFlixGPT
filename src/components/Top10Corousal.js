@@ -40,8 +40,8 @@ const Top10Corousal = ({ dataArray }) => {
         {/* iss div ko scroll krna hai */}
         <div  className="relative w-full  flex flex-row flex-nowrap gap-4 items-bottom ">
           {dataArray &&
-            dataArray.map((item) => (
-              <Top10Card svg={item.svg} poster_path={item.poster_path} />
+            dataArray.map((item, index) => (
+              <Top10Card key={index} svg={item.svg} poster_path={item.poster_path} />
             ))}
         </div>
       </div>

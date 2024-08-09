@@ -5,16 +5,16 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { PiChatTeardropTextFill } from "react-icons/pi";
 
-const BoxCorousal = () => {
+const BoxCorousal = ({moviesData , usePopularMoviesVideos}) => {
   const [cardIndex, setCardIndex] = useState(null);
   const scrollRef = useRef();
   const cardRef = useRef();
 
  
-
-  const popularMovies = useSelector(
-    (store) => store.popularMovies?.popularMovies
-  );
+ 
+    
+ 
+  
 
   function onMouseOverChangeCardIndex(index) {
     setCardIndex(index);
@@ -51,9 +51,10 @@ const BoxCorousal = () => {
               <MdOutlineKeyboardArrowLeft className="text-4xl hover:text-5xl text-white" />
             </span>
           </div>
-          {popularMovies &&
-            popularMovies.map((movie, index) => (
+          {moviesData &&
+            moviesData.map((movie, index) => (
               <BoxCorousalCard
+              key={index}
                 ref={cardRef}
                 onMouseOutChnageCardIndex={onMouseOutChnageCardIndex}
                 onMouseOverChangeCardIndex={() =>

@@ -5,6 +5,7 @@ import TrailerPlayingSecondaryDisplay from "../components/TrailerPlayingSecondar
 import useAuthStateChange from "../hooks/useAuthStateChange";
 import useNowPlaying from "../hooks/useNowPlaying";
 import useTop10Movie from "../hooks/useTop10Movie";
+import usePopularMovie from "../hooks/usePopularMovie";
 
 const Browse = () => {
   // hook constantly checking user loggedIn or not
@@ -12,9 +13,15 @@ const Browse = () => {
 
   //  loads all movies in Store
   useNowPlaying();
+  
 
   // loads top 10 trending movie in store
   useTop10Movie();
+
+  // fetch Popular movie and update in store
+  usePopularMovie();
+
+  // 
 
   return (
     <section className="w-full">

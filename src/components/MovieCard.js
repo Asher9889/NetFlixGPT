@@ -1,13 +1,26 @@
+import { useDispatch } from "react-redux";
+import { addWindowHeight, removeAddMoviesVideos } from "../utils/store/appInfoSlice";
 import { useEffect } from "react";
 
-const MovieCard = ({video, index, setVideoKey}) => {
+const MovieCard = ({video, index, setVideoKey, activeCardIndex, setActiveCardIndex}) => {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    window.scrollTo({
+      top:0,
+      behavior: "smooth"
+    })
+  },[activeCardIndex])
 
   
   return (
     <div onClick={()=> {
         setVideoKey(video.key)
-        // console.log("clicked")
-        }} className=" px-[4%] py-[5%] flex flex-row gap-4 text-white cursor-pointer">
+        setActiveCardIndex()
+        dispatch(addWindowHeight(window.scrollY))
+        }} className={` ${activeCardIndex === index ? "bg-zinc-600" : ""} px-[4%] py-[5%] flex flex-row gap-4 text-white cursor-pointer`}>
+      
       <div className="flex items-center text-lg font-bold text-white">
         {(index + 1)}
       </div>
@@ -18,7 +31,7 @@ const MovieCard = ({video, index, setVideoKey}) => {
         <p>{(video.name?.substring(0,12))}...</p>
         <p>{video.type}</p>
       </div>
-
+     
       
     </div>
   );

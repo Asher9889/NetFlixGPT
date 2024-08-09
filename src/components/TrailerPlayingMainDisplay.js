@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { generateNumber } from "../utils/constant";
-import useMovieVideo from "../hooks/useMovieVideo";
+import useFrontTrailerVideo from "../hooks/useFrontTrailerVideo";
 import { useMemo, React, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 import { FaPlay } from "react-icons/fa";
@@ -9,19 +9,27 @@ import { FaVolumeMute } from "react-icons/fa";
 import { GoUnmute } from "react-icons/go";
 
 const TrailerPlayingMainDisplay = () => {
-  const index = useMemo(() => generateNumber(), []);
-  const [showMutedButton, setShowMutedButton] = useState(false);
-  // getting movie from store
-  const movie = useSelector((store) => store.movies?.movies[index]);
 
+  const [showMutedButton, setShowMutedButton] = useState(false);
+
+  // Generating random Number to choose differnt Number EveryTime
+  const index = useMemo(() => generateNumber(), []);
+
+  console.log("index is: ", index)
+
+  // getting movie from store
+  const movie = useSelector((store) => (store.nowPlaying?.nowPlayingMovies[index]));
+
+  console.log("Movie is : ", movie)
+  console.log("movie id is", movie?.id)
   // adding single movie into store;
   // so that trailer can be shown
 
-  useMovieVideo(movie?.id);
+  useFrontTrailerVideo(movie?.id);
 
-  const video = useSelector((store) => store.movies.trailerMovie[0]);
+  const video = useSelector((store) => store.nowPlaying?.trailerMovie[0]);
 
-  // to mute and unmute functionality
+  // to mute and unmute functionality 
   function toggleMute(){
     setShowMutedButton(!showMutedButton);
   };

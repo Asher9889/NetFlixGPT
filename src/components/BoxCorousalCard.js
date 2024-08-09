@@ -8,44 +8,54 @@ import React, {
 } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import img from "../assests/signInBg.jpg";
 import { IMDB_IMG_URL } from "../utils/constant";
 import { FaPlay } from "react-icons/fa";
 import { LuPlus } from "react-icons/lu";
 import { IoIosThumbsUp } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa6";
 import dayjs from "dayjs";
-import usePopularMovieVideo from "../hooks/usePopularMovieVideo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addWindowHeight } from "../utils/store/appInfoSlice";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useIsMobileOrdesktop from "../hooks/useIsMobileOrDesktop";
+import usePopularMoviesVideos from "../hooks/usePopularMoviesVideos";
 
-const BoxCorousalCard = forwardRef((
+const BoxCorousalCard = forwardRef(
+  (
     {
       cardIndex,
       movie,
       index,
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
-    },ref) => {
-
+    },
+    ref
+  ) => {
     const navigate = useNavigate();
     const childRef = useRef();
+    const dispatch = useDispatch();
+
+    const timer = useRef(null);
+    const videoTimer = useRef(null);
 
     const [showDetails, setShowDetails] = useState(false);
     const [isVideoActive, setIsVideoActive] = useState(false);
     const [isMouseEnter, setIsMouseEnter] = useState(false);
 
+    // checking mobile or desktop
+    const isMobile = useIsMobileOrdesktop();
+
     // addind card videos into store
-    usePopularMovieVideo(movie.id);
+  
+      usePopularMoviesVideos(movie?.id);
+    
 
     // subscribing store
     const videos = useSelector(
       (store) => store.popularMovies?.popularMoviesVideos[index]
     );
-    const trailer = videos?.filter((video) => (video.type === "Trailer"));
-
-   
+    const trailer = videos?.filter((video) => video.type === "Trailer");
 
     useImperativeHandle(ref, () => ({
       handleOnMouseLeave,
@@ -53,23 +63,9 @@ const BoxCorousalCard = forwardRef((
 
     let imgUrl = IMDB_IMG_URL + movie.poster_path;
     let backdropUrl = IMDB_IMG_URL + movie.backdrop_path;
-    let movieID = console.log(movie.id);
-
-    const timer = useRef(null);
-    const videoTimer = useRef(null);
-
-    let isMobile;
-    useEffect(()=>{
-      isMobile = isMobileDevice();
-    }, [])
-    console.log(isMobile)
-    // checking device is mobile or other
-    function isMobileDevice() {
-      return /Mobi|Android/i.test(navigator.userAgent);
-  }
 
     const handleOnMouseEnter = useCallback(() => {
-      if(!isMobile) return;
+      if (isMobile === "Mobile") return;
       setShowDetails(false);
       setIsVideoActive(false);
       clearTimeout(timer.current);
@@ -87,20 +83,27 @@ const BoxCorousalCard = forwardRef((
     }, [onMouseOverChangeCardIndex]);
 
     const handleOnMouseLeave = useCallback(() => {
-      if(!isMobile) return;
+      if (isMobile === "Mobile") return;
       setIsVideoActive(false);
       setShowDetails(false);
       onMouseOutChnageCardIndex();
       clearTimeout(timer.current);
       clearTimeout(videoTimer.current);
-      console.log("Mouse Leave");
+      // console.log("Mouse Leave");
       // setIsHoverActive(false);
     }, [onMouseOverChangeCardIndex]);
 
-    function handleCardClick(){
-      navigate(`/browse/video/${index}`)
+    function handleCardClick() {
+      setShowDetails(false);
+      setIsVideoActive(false);
+      dispatch(addWindowHeight(window.scrollY));
+      navigate(`/browse/video/${index}`);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
-    // console.log(videos)
+
     return (
       <div onClick={handleCardClick} className="relative shrink-0  py-6 ">
         <div
@@ -130,7 +133,7 @@ const BoxCorousalCard = forwardRef((
                 },
               }}
               onMouseLeave={handleOnMouseLeave}
-              className={`absolute top-8 -left-10 flex  h-72  z-[100]  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd drop-shadow-xl rounded-md`}
+              className={`absolute top-8 -left-10  h-72  z-[100]  flex flex-col gap-2  bg-zinc-900 text-white font-netFlixMd drop-shadow-xl rounded-md overflow-hidden`}
             >
               <div>
                 {
@@ -170,10 +173,11 @@ const BoxCorousalCard = forwardRef((
                     </span>
                   </div>
 
-                  <span className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer">
-                    <Link to={`/browse/video/${index}`}>
-                      <FaChevronDown />
-                    </Link>
+                  <span
+                    onClick={handleCardClick}
+                    className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer"
+                  >
+                    <FaChevronDown />
                   </span>
                 </div>
                 <div>
