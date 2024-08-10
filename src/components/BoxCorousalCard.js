@@ -32,7 +32,6 @@ const BoxCorousalCard = forwardRef((
     },ref) => {
 
     const navigate = useNavigate();
-    const childRef = useRef();
     const dispatch = useDispatch();
 
     const timer = useRef(null);
@@ -40,7 +39,7 @@ const BoxCorousalCard = forwardRef((
 
     const [showDetails, setShowDetails] = useState(false);
     const [isVideoActive, setIsVideoActive] = useState(false);
-    const [isMouseEnter, setIsMouseEnter] = useState(false);
+
 
     // checking mobile or desktop
     const isMobile = useIsMobileOrdesktop();
@@ -57,7 +56,7 @@ const BoxCorousalCard = forwardRef((
     const videos = useSelector(
       (store) =>  get(store, `${storeLocation}[${index}]`, [])
     );
-    console.log("Videos is : ",videos)
+    // console.log("Videos is : ",videos)
     const trailer = videos?.filter((video) => video.type === "Trailer");
 
     useImperativeHandle(ref, () => ({
@@ -66,8 +65,9 @@ const BoxCorousalCard = forwardRef((
 
     let imgUrl = IMDB_IMG_URL + movie.poster_path;
     let backdropUrl = IMDB_IMG_URL + movie.backdrop_path;
+    const type = headingName?.toLowerCase();
 
-    const handleOnMouseEnter = useCallback(() => {
+    const handleOnMouseEnter =() => {
       if (isMobile === "Mobile") return;
       setShowDetails(false);
       setIsVideoActive(false);
@@ -80,22 +80,23 @@ const BoxCorousalCard = forwardRef((
       videoTimer.current = setTimeout(() => {
         setIsVideoActive(true);
       }, 2000);
-    }, [onMouseOverChangeCardIndex]);
+    }
 
-    const handleOnMouseLeave = useCallback(() => {
+    const handleOnMouseLeave = () => {
       if (isMobile === "Mobile") return;
       setIsVideoActive(false);
       setShowDetails(false);
       onMouseOutChnageCardIndex();
       clearTimeout(timer.current);
       clearTimeout(videoTimer.current);
-    }, [onMouseOverChangeCardIndex]);
+    }
 
     function handlePopCardClick() {
       if (isMobile === "Mobile") return;
+
       handleOnMouseLeave()
       dispatch(addWindowHeight(window.scrollY));
-      navigate(`/browse/${headingName.toLowerCase()}/video/${index}`);
+      navigate(`/browse/${type}/video/${index}`);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -105,7 +106,7 @@ const BoxCorousalCard = forwardRef((
     function handleCardClick(){
       if (isMobile === "Desktop") return;
       dispatch(addWindowHeight(window.scrollY));
-      navigate(`/browse/${headingName}/video/${index}`);
+      navigate(`/browse/${type}/video/${index}`);
       window.scrollTo({
         top: 0,
         behavior: "smooth",

@@ -15,13 +15,13 @@ const TrailerPlayingMainDisplay = () => {
   // Generating random Number to choose differnt Number EveryTime
   const index = useMemo(() => generateNumber(), []);
 
-  console.log("index is: ", index)
+  // console.log("index is: ", index)
 
   // getting movie from store
   const movie = useSelector((store) => (store.nowPlaying?.nowPlayingMovies[index]));
 
-  console.log("Movie is : ", movie)
-  console.log("movie id is", movie?.id)
+  // console.log("Movie is : ", movie)
+  // console.log("movie id is", movie?.id)
   // adding single movie into store;
   // so that trailer can be shown
 

@@ -8,7 +8,7 @@ const useFrontTrailerVideo = (id) => {
 
   useEffect(() => {
     if (id !== undefined) {
-      console.log("I am useEffect")
+      // console.log("I am useEffect")
       findVideos();
     }
   }, [id]);

@@ -5,6 +5,7 @@ import MovieCard from "./MovieCard";
 import { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 
 const Movie = () => {
   const [videoKey, setVideoKey] = useState(null);
@@ -14,26 +15,34 @@ const Movie = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { index, type } = useParams();
+  console.log("index: ", index)
+  console.log("type is : ", type)
 
   // List of videos
   const videos = useSelector(
-    (store) => {
-      if(type === "now playing"){
-        return store.nowPlaying?.nowPlayingMoviesVideos[index]
-      }else if(type === "popular"){
-        return store.popularMovies?.popularMoviesVideos[index]
+      (store) => {
+        if(type === "now playing"){
+          return store.nowPlaying?.nowPlayingMoviesVideos[index]
+        }else if(type === "popular"){
+          return store.popularMovies?.popularMoviesVideos[index]
+        }
       }
-    }
-  );
+    );
 
+    console.log(videos)
   const windowHeight = useSelector((store) => store.appInfo?.windowHeight);
 
   // Filtering trailer from list of videos
   const trailer = videos?.filter((video) => video?.type === "Trailer");
 
   useEffect(() => {
-    setVideoKey(trailer[0]?.key);
-  }, []);
+    if (trailer?.length > 0) {
+      setVideoKey(trailer[0]?.key);
+    } else {
+      setVideoKey(null); // or handle the case where no trailer is found
+    }
+  }, [trailer]);
+  
 
   useEffect(() => {
     console.log("runs")
@@ -73,13 +82,12 @@ const Movie = () => {
       initial="hidden"
       animate="visible"
       exit="exit"
-      className="absolute  inset-0 pt-10 bg-[rgba(0,0,0,0.8)] z-[100]"
+      className="absolute  inset-0 pt-10 bg-[rgba(0,0,0,0.8)] z-[100] overflow-y-scroll"
     >
       <div className="relative mx-auto w-[90vw] lg:w-[60vw] bg-[var(--black1-color)] h-[200vh] ">
         <span
           onClick={() => {
             navigate("/browse")
-            dispatch(removeWindowHeight())
           }}
           className="absolute h-10 w-10 right-0 top-0 p-2 hover:text-3xl rounded-full bg-zinc-600 hover:bg-zinc-800 text-white flex justify-center items-center cursor-pointer"
         >
@@ -98,7 +106,7 @@ const Movie = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="overflow-y-scroll h-[50%] scrollbar bg-[var(--primary-bg-color)]">
+        <div className="scrollbar bg-[var(--primary-bg-color)]">
           {videos &&
             videos.map((video, index) => (
               <MovieCard

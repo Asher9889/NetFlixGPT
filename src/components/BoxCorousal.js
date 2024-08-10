@@ -1,15 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import BoxCorousalCard from "./BoxCorousalCard";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import { PiChatTeardropTextFill } from "react-icons/pi";
+
 
 const BoxCorousal = ({moviesData , moviesVideosData, headingName, storeLocation}) => {
   const [cardIndex, setCardIndex] = useState(null);
   const scrollRef = useRef();
   const cardRef = useRef();
 
- 
+
+
+
   function onMouseOverChangeCardIndex(index) {
     setCardIndex(index);
   }

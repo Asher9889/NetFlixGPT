@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
-import { addWindowHeight, removeAddMoviesVideos } from "../utils/store/appInfoSlice";
+import { addWindowHeight } from "../utils/store/appInfoSlice";
 import { useEffect } from "react";
+
 
 const MovieCard = ({video, index, setVideoKey, activeCardIndex, setActiveCardIndex}) => {
 
@@ -11,9 +12,10 @@ const MovieCard = ({video, index, setVideoKey, activeCardIndex, setActiveCardInd
       top:0,
       behavior: "smooth"
     })
+    
   },[activeCardIndex])
 
-  
+ 
   return (
     <div onClick={()=> {
         setVideoKey(video.key)
@@ -25,10 +27,11 @@ const MovieCard = ({video, index, setVideoKey, activeCardIndex, setActiveCardInd
         {(index + 1)}
       </div>
       <div>
-        <img className="w-40 aspect-video" src={`https://img.youtube.com/vi/${video?.key}/maxresdefault.jpg`}/>
+        <img className="w-40 aspect-video" src={`https://img.youtube.com/vi/${video?.key}/maxresdefault.jpg`} alt="movie-card"/>
       </div>
-      <div className="text-xl font-netFlixBd">
-        <p>{(video?.name?.substring(0,12))}...</p>
+      <div className=" font-netFlixBd">
+        <p className="md:hidden text-sm">{(video?.name?.substring(0,20))}...</p>
+        <p className="hidden md:block md:text-lg">{(video?.name)}</p>
         <p>{video?.type}</p>
       </div>
      
