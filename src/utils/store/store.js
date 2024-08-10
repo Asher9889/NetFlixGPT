@@ -9,8 +9,8 @@ const appStore = configureStore({
     reducer:{
         user: userReducer,
         appInfo: appInfoReducers,
-        nowPlaying: nowPlayingReducers,
         top10Movies: top10MoviesReducers,
+        nowPlaying: nowPlayingReducers,
         popularMovies: popularMoviesReducers,
     }
 });

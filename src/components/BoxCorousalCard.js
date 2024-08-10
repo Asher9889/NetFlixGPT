@@ -1,6 +1,5 @@
 import React, {
   forwardRef,
-  useCallback,
   useImperativeHandle,
   useRef,
   useState,
@@ -26,7 +25,6 @@ const BoxCorousalCard = forwardRef((
       index,
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
-      moviesVideosData,
       storeLocation,
       headingName
     },ref) => {
@@ -44,8 +42,6 @@ const BoxCorousalCard = forwardRef((
     // checking mobile or desktop
     const isMobile = useIsMobileOrdesktop();
 
-    // addind card videos into store
-    moviesVideosData(movie?.id);
     // subscribing store
     // const videos = useSelector(
     //   (store) => store && store.popularMovies?.popularMoviesVideos[index]
@@ -56,8 +52,20 @@ const BoxCorousalCard = forwardRef((
     const videos = useSelector(
       (store) =>  get(store, `${storeLocation}[${index}]`, [])
     );
-    // console.log("Videos is : ",videos)
-    const trailer = videos?.filter((video) => video.type === "Trailer");
+
+      // for optimising redux
+
+    // const selectVideos = createSelector(
+    //     [(state, index) => get(state, `${storeLocation}[${index}]`, [])],
+    //     (videos) => videos
+    // );
+      
+    // const videos = useSelector((state) => selectVideos(state, index));
+
+
+
+
+    const trailer = movie?.video?.filter((video) => video.type === "Trailer");
 
     useImperativeHandle(ref, () => ({
       handleOnMouseLeave,

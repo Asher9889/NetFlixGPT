@@ -7,18 +7,12 @@ const popularMovieSlice = createSlice({
         popularMoviesVideos: [],
     },
     reducers: {
-        addMovies: (state, action)=>{
+        addPopularMovies: (state, action)=>{
             state.popularMovies = action.payload;
         },
-        addMoviesVideos: (state, action)=>{
-            state.popularMoviesVideos.push(action.payload);
-        },
-        removeAddMoviesVideos: (state, action)=>{
-            state.popularMoviesVideos.length = 0;
-        }
-    }
+    }    
 })
 
-export const { addMovies, addMoviesVideos, removeAddMoviesVideos } = popularMovieSlice.actions;
+export const { addPopularMovies } = popularMovieSlice.actions;
 
 export default popularMovieSlice.reducer;

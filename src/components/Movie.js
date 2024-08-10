@@ -1,63 +1,64 @@
 import { useSelector, useDispatch } from "react-redux";
-import { removeWindowHeight } from "../utils/store/appInfoSlice"
+import noImg from "../assests/noYtImg.jpg"
 import { useNavigate, useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+
 
 const Movie = () => {
   const [videoKey, setVideoKey] = useState(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
 
-
-  const dispatch = useDispatch();
+  const movieContainerRef = useRef(null);
   const navigate = useNavigate();
   const { index, type } = useParams();
-  console.log("index: ", index)
-  console.log("type is : ", type)
 
   // List of videos
   const videos = useSelector(
       (store) => {
         if(type === "now playing"){
-          return store.nowPlaying?.nowPlayingMoviesVideos[index]
+          return store.nowPlaying?.nowPlayingMovies[index]
         }else if(type === "popular"){
-          return store.popularMovies?.popularMoviesVideos[index]
+          return store.popularMovies?.popularMovies[index]
         }
       }
     );
 
-    console.log(videos)
+   
+
   const windowHeight = useSelector((store) => store.appInfo?.windowHeight);
 
   // Filtering trailer from list of videos
-  const trailer = videos?.filter((video) => video?.type === "Trailer");
+  const trailer = videos?.video?.filter((video) => video?.type === "Trailer");
 
-  useEffect(() => {
-    if (trailer?.length > 0) {
-      setVideoKey(trailer[0]?.key);
-    } else {
-      setVideoKey(null); // or handle the case where no trailer is found
-    }
-  }, [trailer]);
+
+    useEffect(()=>{
+      setVideoKey(trailer[0].key)
+    },[])
+
+
+  // useEffect(() => {
+  //   if (trailer?.length > 0) {
+  //     setVideoKey(trailer[0]?.key);
+  //   } else {
+  //     setVideoKey(null); // or handle the case where no trailer is found
+  //   }
+  // }, [trailer]);
   
 
   useEffect(() => {
-    console.log("runs")
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    if(movieContainerRef.current){
+      movieContainerRef.current.scrollTo({
+      top:0,
+      behavior: "smooth"
+    })}
 
-    return () => {
-      window.scrollTo({
-        top: windowHeight,
-        behavior: "smooth",
-      });
-    };
-  }, [videoKey]);
+    window.scrollTo({
+      top:0,
+      behavior: "smooth"
+    })}, [videoKey, activeCardIndex]);
 
   // Framer Motion variants for animation
   const containerVariants = {
@@ -83,6 +84,7 @@ const Movie = () => {
       animate="visible"
       exit="exit"
       className="absolute  inset-0 pt-10 bg-[rgba(0,0,0,0.8)] z-[100] overflow-y-scroll"
+      ref={movieContainerRef}
     >
       <div className="relative mx-auto w-[90vw] lg:w-[60vw] bg-[var(--black1-color)] h-[200vh] ">
         <span
@@ -98,7 +100,7 @@ const Movie = () => {
             width="100%"
             className=""
             height="100%"
-            src={`https://www.youtube.com/embed/${videoKey}`}
+            src={`${videoKey ? `https://www.youtube.com/embed/${videoKey}` : {noImg}} `}
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -107,8 +109,8 @@ const Movie = () => {
           ></iframe>
         </div>
         <div className="scrollbar bg-[var(--primary-bg-color)]">
-          {videos &&
-            videos.map((video, index) => (
+          {
+            videos?.video?.map((video, index) => (
               <MovieCard
                 activeCardIndex={activeCardIndex}
                 setActiveCardIndex={() => setActiveCardIndex(index)}

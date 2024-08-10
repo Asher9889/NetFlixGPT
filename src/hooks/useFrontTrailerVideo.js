@@ -24,7 +24,7 @@ const useFrontTrailerVideo = (id) => {
       const video = data?.results?.filter(
         (video) => video.type === "Trailer"
       );
-      dispatch(addTrailerMovie(video));
+      // dispatch(addTrailerMovie(video));
     } catch (error) {
       console.log("error during useMovieHook fetch call");
     }

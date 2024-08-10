@@ -4,7 +4,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 
-const BoxCorousal = ({moviesData , moviesVideosData, headingName, storeLocation}) => {
+const BoxCorousal = ({moviesData ,  headingName, storeLocation}) => {
   const [cardIndex, setCardIndex] = useState(null);
   const scrollRef = useRef();
   const cardRef = useRef();
@@ -57,7 +57,6 @@ const BoxCorousal = ({moviesData , moviesVideosData, headingName, storeLocation}
                 onMouseOverChangeCardIndex={() =>
                   onMouseOverChangeCardIndex(index)
                 }
-                moviesVideosData={moviesVideosData}
                 movie={movie}
                 index={index}
                 cardIndex={cardIndex}

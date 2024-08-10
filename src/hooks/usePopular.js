@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { options } from "../utils/constant";
 import { IMDB_BASE_API_URL } from "../utils/constant";
 import { useDispatch } from "react-redux";
-import { addNowPlayingMovies } from "../utils/store/nowPlayingSlice";
+import { addPopularMovies } from "../utils/store/popularMovieSlice";
 
 
 
-const useNowPlaying = () => {
+const usePopular = () => {
   
-
   const dispatch = useDispatch();
 
 
@@ -18,7 +17,7 @@ const useNowPlaying = () => {
 
   async function fetchAllMovies() {
     try {
-      const res = await fetch(IMDB_BASE_API_URL + "/movie/now_playing", options);
+      const res = await fetch(IMDB_BASE_API_URL + "/movie/popular", options);
       const allMovies = await res.json();
       return allMovies.results;
     }catch (error) {
@@ -60,8 +59,7 @@ const useNowPlaying = () => {
             video: results[i],
           }));
         //   console.log(finalData);
-        dispatch(addNowPlayingMovies(finalData));
-         
+        dispatch(addPopularMovies(finalData));
         }
       }
     } catch (error) {
@@ -72,4 +70,4 @@ const useNowPlaying = () => {
   
 };
 
-export default useNowPlaying;
+export default usePopular;

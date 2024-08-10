@@ -1,93 +1,82 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hover Effect Cards</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
-
-.card {
-    position: relative;
-    width: 200px;
-    height: 300px;
-    margin: 10px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 20px;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.card:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.card:hover .info {
-    opacity: 1;
-    transform: translateY(0);
-}
-    </style>
+    <title>Document</title>
 </head>
-<body>
-    <div class="card">
-        <img src="photo1.jpg" alt="Photo 1">
-        <div class="info">
-            <h3>Card Title 1</h3>
-            <p>Some more information about this card.</p>
-        </div>
-    </div>
-    <div class="card">
-        <img src="photo2.jpg" alt="Photo 2">
-        <div class="info">
-            <h3>Card Title 2</h3>
-            <p>Some more information about this card.</p>
-        </div>
-    </div>
-    <!-- Add more cards as needed -->
-    <script >
-        // scripts.js
-document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mouseover', () => {
-        card.style.transform = 'scale(1.1)';
-        card.querySelector('.info').style.opacity = '1';
-        card.querySelector('.info').style.transform = 'translateY(0)';
-    });
 
-    card.addEventListener('mouseout', () => {
-        card.style.transform = 'scale(1)';
-        card.querySelector('.info').style.opacity = '0';
-        card.querySelector('.info').style.transform = 'translateY(100%)';
-    });
-});
+<body>
+
+    <script>
+        const options = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: "Bearer " + "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NmMxYzU3NDYwYTZmODNhOWQ1NzViYTQ0MDEzNDVlYiIsIm5iZiI6MTcyMjc2NDI3OS41MDQzNDEsInN1YiI6IjY2MWUzMzQ1Yjg0Y2RkMDE3ZDY0MGU2MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.0te5AxmlN0cLX2mFSm5UkMhS9UMHsMFfsI9qraiVZtc",
+            }
+        };
+
+
+      
+
+        async function fetchAllMovies() {
+            const res = await fetch("https://api.themoviedb.org/3/movie/now_playing", options)
+            const allMovies = await res.json();
+
+            return allMovies.results;
+        }
+
+         async function fetchVideo(id) {
+           try {
+             const res = await fetch("https://api.themoviedb.org/3/movie/" + id + "/videos", options)
+             const data = await res.json();
+             return data.results;
+           } catch (error) {
+                console.log('Error during fetchVideo call')
+           }
+        }
+
+        async function fetchAllMoviesVideos() {
+           try {
+               console.log("all movie data is fetching")
+             const allMovieData = await fetchAllMovies();
+           
+             if (allMovieData) {
+                console.log(allMovieData)
+                console.log("ids is fetching")
+                 const ids = allMovieData?.map((m, i) => m.id)
+                 console.log(ids)
+                 const allVideosApi = ids?.map((id, i) => fetchVideo(id))
+                 console.log("all api is : ", allVideosApi)
+                 console.log("Now all videos is fetching")
+                 const results = await Promise.all(allVideosApi)
+                 if(results){
+
+                     console.log("All videos is; ", results)
+                     finaldata = allMovieData.map((movie, i) => ({...movie, video: results[i]}))
+                    console.log(finaldata)
+                    }
+             }
+           } catch (error) {
+            console.log("error happed ", error)
+           }
+
+        }
+
+
+        fetchAllMoviesVideos()
+
+        console.log(finalData)
+        
+
+        
+
+        
+
 
     </script>
 </body>
-</html>
+
+</html> -->

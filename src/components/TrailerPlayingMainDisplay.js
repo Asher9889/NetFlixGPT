@@ -18,18 +18,21 @@ const TrailerPlayingMainDisplay = () => {
   // console.log("index is: ", index)
 
   // getting movie from store
-  const movie = useSelector((store) => (store.nowPlaying?.nowPlayingMovies[index]));
 
   // console.log("Movie is : ", movie)
   // console.log("movie id is", movie?.id)
   // adding single movie into store;
   // so that trailer can be shown
 
-  useFrontTrailerVideo(movie?.id);
+  
 
-  const video = useSelector((store) => store.nowPlaying?.trailerMovie[0]);
+  const movie = useSelector((store) => store.nowPlaying?.nowPlayingMovies[index]);
+  
+  const video = movie?.video.filter((video, index)=> video.type === "Trailer")
 
-  // to mute and unmute functionality 
+  const trailer = video && video[0].key
+
+
   function toggleMute(){
     setShowMutedButton(!showMutedButton);
   };
@@ -38,7 +41,7 @@ const TrailerPlayingMainDisplay = () => {
     <section className="relative w-full lg:85vh aspect-video overflow-x-hidden overflow-hidden">
       <ReactPlayer
         className="scale-[1.5]"
-        url={`https://www.youtube.com/watch?v=${video?.key}`}
+        url={`https://www.youtube.com/watch?v=${trailer}`}
         width="100%"
         height="100%"
         loop={true}
