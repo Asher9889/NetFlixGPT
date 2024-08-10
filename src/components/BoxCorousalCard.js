@@ -25,7 +25,6 @@ const BoxCorousalCard = forwardRef((
       index,
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
-      storeLocation,
       headingName
     },ref) => {
 
@@ -49,9 +48,6 @@ const BoxCorousalCard = forwardRef((
 
     // used lodash library to access path otherwise it will search storeLocation
     // inside store object
-    const videos = useSelector(
-      (store) =>  get(store, `${storeLocation}[${index}]`, [])
-    );
 
       // for optimising redux
 

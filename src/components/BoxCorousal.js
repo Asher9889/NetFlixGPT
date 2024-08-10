@@ -4,7 +4,7 @@ import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 
 
-const BoxCorousal = ({moviesData ,  headingName, storeLocation}) => {
+const BoxCorousal = ({moviesData ,  headingName}) => {
   const [cardIndex, setCardIndex] = useState(null);
   const scrollRef = useRef();
   const cardRef = useRef();
@@ -30,7 +30,7 @@ const BoxCorousal = ({moviesData ,  headingName, storeLocation}) => {
   }
 
   return (
-    <div className="relative py-10">
+    <div className="relative py-6">
       <div >
         <h1 className="w-fit px-[4%] text-white font-netFlixMd text-[1.4rem] lg:text-[2rem]">
           {headingName} Movies
@@ -60,7 +60,6 @@ const BoxCorousal = ({moviesData ,  headingName, storeLocation}) => {
                 movie={movie}
                 index={index}
                 cardIndex={cardIndex}
-                storeLocation={storeLocation}
                 headingName={headingName}
               />
             ))}

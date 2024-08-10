@@ -4,6 +4,8 @@ import appInfoReducers from "./appInfoSlice";
 import nowPlayingReducers from "./nowPlayingSlice"
 import top10MoviesReducers from "./top10MovieSlice";
 import popularMoviesReducers from "./popularMovieSlice";
+import trendingReducers from "./trendingSlice";
+import upcomingReducers from "./upcomingSlice";
 
 const appStore = configureStore({
     reducer:{
@@ -12,6 +14,8 @@ const appStore = configureStore({
         top10Movies: top10MoviesReducers,
         nowPlaying: nowPlayingReducers,
         popularMovies: popularMoviesReducers,
+        trendingMovies: trendingReducers,
+        upcomingMovies: upcomingReducers,
     }
 });
 

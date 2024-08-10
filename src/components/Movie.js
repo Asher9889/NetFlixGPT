@@ -1,8 +1,8 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import noImg from "../assests/noYtImg.jpg"
 import { useNavigate, useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
 
@@ -22,6 +22,10 @@ const Movie = () => {
           return store.nowPlaying?.nowPlayingMovies[index]
         }else if(type === "popular"){
           return store.popularMovies?.popularMovies[index]
+        }else if(type === "trending"){
+          return store.trendingMovies?.trendingMovies[index]
+        }else if(type === "upcoming"){
+          return store.upcomingMovies?.upcomingMovies[index]
         }
       }
     );
@@ -33,9 +37,16 @@ const Movie = () => {
   // Filtering trailer from list of videos
   const trailer = videos?.video?.filter((video) => video?.type === "Trailer");
 
+  const trailerVideo = trailer && trailer[0].key
 
     useEffect(()=>{
-      setVideoKey(trailer[0].key)
+      setVideoKey(trailerVideo)
+
+      return ()=>{
+        window.scrollTo({
+          top:windowHeight,
+          behavior: "smooth"
+        })}
     },[])
 
 
@@ -50,16 +61,17 @@ const Movie = () => {
 
   useEffect(() => {
     if(movieContainerRef.current){
+     setTimeout(()=>{
       movieContainerRef.current.scrollTo({
-      top:0,
-      behavior: "smooth"
-    })}
-
-    window.scrollTo({
-      top:0,
-      behavior: "smooth"
-    })}, [videoKey, activeCardIndex]);
-
+        top:0,
+        behavior: "smooth"
+      })}, 500)
+    
+     
+    }
+  }, [videoKey, activeCardIndex])
+  
+  
   // Framer Motion variants for animation
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.8, y: 100 },

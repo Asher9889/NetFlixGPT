@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useParams } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import BrowserHeader from "../components/BrowserHeader";
 import TrailerPlayingMainDisplay from "../components/TrailerPlayingMainDisplay";
 import TrailerPlayingSecondaryDisplay from "../components/TrailerPlayingSecondaryDisplay";
@@ -6,8 +6,8 @@ import useAuthStateChange from "../hooks/useAuthStateChange";
 import { useEffect } from "react";
 import useNowPlaying from "../hooks/useNowPlaying";
 import usePopular from "../hooks/usePopular";
-
-
+import useTrending from "../hooks/useTrending"
+import useUpcoming from "../hooks/useUpcoming"
 const Browse = () => {
   
 
@@ -22,27 +22,11 @@ const Browse = () => {
   // fetching data same for popular movies
   usePopular();
 
-      
- 
-  
-  // fetching popular movies same as above
-  // const popularMoviesdata = useCombineMovieInfoAndVideos("/movie/popular", "movie")
-  
-  
-  
- 
+  // fetching trending movies and same as above
+  useTrending();
 
-
-
-  //  loads all movies in Store
-  // useNowPlaying();
-  
-
-  // loads top 10 trending movie in store
-  // useTop10Movie();
-
-  // fetch Popular movie and update in store
-  // usePopularMovie();
+  // fetching upcoming videos
+  useUpcoming()
 
   const location = useLocation()
   const isOutletActive = location.pathname === "/browse";
@@ -67,13 +51,13 @@ const Browse = () => {
   },[isOutletActive])
 
   return (
-    <section className="w-full">
+    <section className="w-full bg-black">
       <BrowserHeader />
 
-    <TrailerPlayingMainDisplay />
+      <TrailerPlayingMainDisplay />
 
       
-        <Outlet />
+      <Outlet />
       
      
       <TrailerPlayingSecondaryDisplay />

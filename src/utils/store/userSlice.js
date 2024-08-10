@@ -37,6 +37,6 @@ const userSlice = createSlice({
 
 })
 
-export const { addEmail, addName, addPassword, addDetailsInFirebase, removeUser } = userSlice.actions;
+export const { addEmail, addName,  removeUser } = userSlice.actions;
 
 export default userSlice.reducer;

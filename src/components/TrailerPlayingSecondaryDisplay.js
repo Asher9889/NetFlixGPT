@@ -22,8 +22,15 @@ const TrailerPlayingSecondaryDisplay = () => {
   const popularMovies = useSelector(
     (store) => store.popularMovies?.popularMovies
   );
-
+  // trending movies
+  const trendingMovies = useSelector((store)=> store.trendingMovies?.trendingMovies)
  
+
+  // Subscribing upcoming movie store
+  const upcomingMovies = useSelector((store)=> store.upcomingMovies?.upcomingMovies)
+  
+  
+  
   return (
     <div className="w-full relative bg-black top-0 lg:-top-[25vh]">
       
@@ -33,16 +40,25 @@ const TrailerPlayingSecondaryDisplay = () => {
       <BoxCorousal 
         headingName="Now Playing"
         moviesData={nowPlayingMovies} 
-        storeLocation="nowPlaying.nowPlayingMoviesVideos"
       />
 
       {/* Popular Movies Slice Data*/}
-      {/* <BoxCorousal 
+      <BoxCorousal 
         headingName="Popular" 
-        moviesVideosData={usePopularMoviesVideos}  
         moviesData={popularMovies} 
-        storeLocation="popularMovies.popularMoviesVideos"
-      /> */}
+      />
+
+      {/* trending movies Slice */}
+      <BoxCorousal 
+        headingName="Trending" 
+        moviesData={trendingMovies} 
+      />
+
+      {/* upcoming movies Slice */}
+      <BoxCorousal 
+        headingName="Upcoming" 
+        moviesData={upcomingMovies} 
+      />
 
         
      

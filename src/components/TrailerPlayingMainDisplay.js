@@ -10,7 +10,7 @@ import { GoUnmute } from "react-icons/go";
 
 const TrailerPlayingMainDisplay = () => {
 
-  const [showMutedButton, setShowMutedButton] = useState(false);
+  const [showVolumnButton, setShowVolumnButton] = useState(true);
 
   // Generating random Number to choose differnt Number EveryTime
   const index = useMemo(() => generateNumber(), []);
@@ -34,7 +34,7 @@ const TrailerPlayingMainDisplay = () => {
 
 
   function toggleMute(){
-    setShowMutedButton(!showMutedButton);
+    setShowVolumnButton(!showVolumnButton);
   };
 
   return (
@@ -47,8 +47,9 @@ const TrailerPlayingMainDisplay = () => {
         loop={true}
         playing={true}
         controls={false}
-        muted={showMutedButton}
-        volume={showMutedButton ? 0 : 1}
+        
+        muted={showVolumnButton}
+        volume={showVolumnButton ? 0 : 0.5}
       />
       <div className="absolute w-[40%] sm:w-[60%] lg:w-[40%] lg:flex lg:flex-col lg:gap-4 left-[4%] top-[30%] xs:top-[45%] sm:top-[40%] lg:top-[25%] text-white ">
         <h1 className=" text-sm sm:text-xl lg:leading-[3rem] lg:text-[3rem]  font-netFlixBd ">
@@ -70,9 +71,9 @@ const TrailerPlayingMainDisplay = () => {
       </div>
       <span onClick={toggleMute} className="absolute right-[10%] bottom-[10%] lg:bottom-[40%]   text-xl lg:text-4xl text-white w-8 h-8 lg:w-16 lg:h-16 rounded-full flex justify-center items-center border-[2px] border-white cursor-pointer">
 
-     {showMutedButton ? <FaVolumeMute /> : <GoUnmute />}
+     {showVolumnButton ? <FaVolumeMute /> : <GoUnmute />   }
       </span>
-    </section>
+    </section> 
   );
 };
 
