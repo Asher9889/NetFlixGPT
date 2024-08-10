@@ -25,11 +25,11 @@ const MovieCard = ({video, index, setVideoKey, activeCardIndex, setActiveCardInd
         {(index + 1)}
       </div>
       <div>
-        <img className="w-40 aspect-video" src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`}/>
+        <img className="w-40 aspect-video" src={`https://img.youtube.com/vi/${video?.key}/maxresdefault.jpg`}/>
       </div>
       <div className="text-xl font-netFlixBd">
-        <p>{(video.name?.substring(0,12))}...</p>
-        <p>{video.type}</p>
+        <p>{(video?.name?.substring(0,12))}...</p>
+        <p>{video?.type}</p>
       </div>
      
       

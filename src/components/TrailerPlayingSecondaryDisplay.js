@@ -31,10 +31,10 @@ const TrailerPlayingSecondaryDisplay = () => {
       <Top10Corousal dataArray={dataArray} />
      
       {/* Now Playng Slice Data */}
-      {/* <BoxCorousal headingName="Now Playing Movies" moviesVideosData={useNowPlayingVideos} moviesData={nowPlayingMovies} storeLocation="nowPlaying?.nowPlayingMoviesVideos"/> */}
+      <BoxCorousal headingName="Now Playing" moviesVideosData={useNowPlayingVideos} moviesData={nowPlayingMovies} storeLocation="nowPlaying.nowPlayingMoviesVideos"/>
 
       {/* Popular Movies Slice Data*/}
-      <BoxCorousal headingName="Popular Movies" moviesVideosData={usePopularMoviesVideos}  moviesData={popularMovies} storeLocation="popularMovies?.popularMoviesVideos"/>
+      <BoxCorousal headingName="Popular" moviesVideosData={usePopularMoviesVideos}  moviesData={popularMovies} storeLocation="popularMovies.popularMoviesVideos"/>
 
         
      

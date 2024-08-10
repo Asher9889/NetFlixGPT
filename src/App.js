@@ -26,7 +26,7 @@ const appRoutes = createBrowserRouter([
       element: <Browse />,
       children: [
         {
-        path: "/browse/video/:index",
+        path: "/browse/:type/video/:index",
         element: <Movie />
         }
     ]

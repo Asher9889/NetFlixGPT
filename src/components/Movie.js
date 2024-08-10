@@ -10,22 +10,29 @@ const Movie = () => {
   const [videoKey, setVideoKey] = useState(null);
   const [activeCardIndex, setActiveCardIndex] = useState(0);
 
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { index } = useParams();
+  const { index, type } = useParams();
 
   // List of videos
   const videos = useSelector(
-    (store) => store.popularMovies?.popularMoviesVideos[index]
+    (store) => {
+      if(type === "now playing"){
+        return store.nowPlaying?.nowPlayingMoviesVideos[index]
+      }else if(type === "popular"){
+        return store.popularMovies?.popularMoviesVideos[index]
+      }
+    }
   );
 
   const windowHeight = useSelector((store) => store.appInfo?.windowHeight);
 
   // Filtering trailer from list of videos
-  const trailer = videos?.filter((video) => video.type === "Trailer");
+  const trailer = videos?.filter((video) => video?.type === "Trailer");
 
   useEffect(() => {
-    setVideoKey(trailer[0].key);
+    setVideoKey(trailer[0]?.key);
   }, []);
 
   useEffect(() => {

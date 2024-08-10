@@ -31,7 +31,7 @@ const BoxCorousal = ({moviesData , moviesVideosData, headingName, storeLocation}
     <div className="relative py-10">
       <div >
         <h1 className="w-fit px-[4%] text-white font-netFlixMd text-[1.4rem] lg:text-[2rem]">
-          {headingName}
+          {headingName} Movies
         </h1>
         <div
           ref={scrollRef}
@@ -60,6 +60,7 @@ const BoxCorousal = ({moviesData , moviesVideosData, headingName, storeLocation}
                 index={index}
                 cardIndex={cardIndex}
                 storeLocation={storeLocation}
+                headingName={headingName}
               />
             ))}
           <div

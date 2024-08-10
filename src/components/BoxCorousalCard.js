@@ -17,8 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addWindowHeight } from "../utils/store/appInfoSlice";
 import { useNavigate } from "react-router-dom";
 import useIsMobileOrdesktop from "../hooks/useIsMobileOrDesktop";
-import get from "lodash.get";
-// import usePopularMoviesVideos from "../hooks/usePopularMoviesVideos";
+import get from "lodash/get";
 
 const BoxCorousalCard = forwardRef((
     {
@@ -28,7 +27,8 @@ const BoxCorousalCard = forwardRef((
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
       moviesVideosData,
-      storeLocation
+      storeLocation,
+      headingName
     },ref) => {
 
     const navigate = useNavigate();
@@ -51,9 +51,13 @@ const BoxCorousalCard = forwardRef((
     // const videos = useSelector(
     //   (store) => store && store.popularMovies?.popularMoviesVideos[index]
     // );
+
+    // used lodash library to access path otherwise it will search storeLocation
+    // inside store object
     const videos = useSelector(
-      (store) =>  get(store, `${storeLocation}[${index}]`, {})
+      (store) =>  get(store, `${storeLocation}[${index}]`, [])
     );
+    console.log("Videos is : ",videos)
     const trailer = videos?.filter((video) => video.type === "Trailer");
 
     useImperativeHandle(ref, () => ({
@@ -87,11 +91,21 @@ const BoxCorousalCard = forwardRef((
       clearTimeout(videoTimer.current);
     }, [onMouseOverChangeCardIndex]);
 
-    function handleCardClick() {
-      setShowDetails(false);
-      setIsVideoActive(false);
+    function handlePopCardClick() {
+      if (isMobile === "Mobile") return;
+      handleOnMouseLeave()
       dispatch(addWindowHeight(window.scrollY));
-      navigate(`/browse/video/${index}`);
+      navigate(`/browse/${headingName.toLowerCase()}/video/${index}`);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+    function handleCardClick(){
+      if (isMobile === "Desktop") return;
+      dispatch(addWindowHeight(window.scrollY));
+      navigate(`/browse/${headingName}/video/${index}`);
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -141,7 +155,7 @@ const BoxCorousalCard = forwardRef((
                     <iframe
                       // width="100%"
                       className="w-full"
-                      src={`https://www.youtube.com/embed/${trailer[0].key}`}
+                      src={`https://www.youtube.com/embed/${trailer[0]?.key}`}
                       loading="lazy"
                       title="YouTube video player"
                       frameborder="0"
@@ -168,7 +182,7 @@ const BoxCorousalCard = forwardRef((
                   </div>
 
                   <span
-                    onClick={handleCardClick}
+                    onClick={handlePopCardClick}
                     className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer"
                   >
                     <FaChevronDown />
