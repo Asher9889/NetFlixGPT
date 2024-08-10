@@ -12,11 +12,10 @@ import { LuPlus } from "react-icons/lu";
 import { IoIosThumbsUp } from "react-icons/io";
 import { FaChevronDown } from "react-icons/fa6";
 import dayjs from "dayjs";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addWindowHeight } from "../utils/store/appInfoSlice";
 import { useNavigate } from "react-router-dom";
 import useIsMobileOrdesktop from "../hooks/useIsMobileOrDesktop";
-import get from "lodash/get";
 
 const BoxCorousalCard = forwardRef((
     {

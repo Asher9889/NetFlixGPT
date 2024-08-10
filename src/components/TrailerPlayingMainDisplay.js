@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { generateNumber } from "../utils/constant";
-import useFrontTrailerVideo from "../hooks/useFrontTrailerVideo";
 import { useMemo, React, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 import { FaPlay } from "react-icons/fa";

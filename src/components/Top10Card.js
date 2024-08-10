@@ -15,6 +15,7 @@ const Top10Card = ({ svg, poster_path }) => {
         <img
           className="h-[180px] lg:-ml-6 lg:h-[200px] object-cover  cursor-pointer"
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+          alt="img"
         />
       </div>
    
