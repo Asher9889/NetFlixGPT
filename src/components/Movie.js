@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import noImg from "../assests/noYtImg.jpg"
 import { useNavigate, useParams } from "react-router-dom";
 import MovieCard from "./MovieCard";
 import { useEffect, useState, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { motion } from "framer-motion";
+import { removeWindowHeight } from "../utils/store/appInfoSlice";
 
 
 const Movie = () => {
@@ -12,6 +13,7 @@ const Movie = () => {
   const [activeCardIndex, setActiveCardIndex] = useState(null);
 
   const movieContainerRef = useRef(null);
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const { index, type } = useParams();
 
@@ -46,8 +48,11 @@ const Movie = () => {
         window.scrollTo({
           top:windowHeight,
           behavior: "smooth"
-        })}
-    },[])
+        })
+      
+        dispatch(removeWindowHeight())
+      }
+    },[dispatch, trailerVideo, windowHeight])
 
 
   // useEffect(() => {

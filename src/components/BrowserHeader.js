@@ -13,10 +13,13 @@ import { IoMdHelpCircleOutline } from "react-icons/io";
 import logout from "../utils/firebaseAuth/logout";
 import { auth } from "../utils/firebaseAuth/firebase";
 import BrowseMenu from "./BrowseMenu";
+import { useSelector } from "react-redux";
 
 const BrowserHeader = () => {
   const [showDropDown, setShowDropDown] = useState(false);
   const [showBrowseMenu, setShowBrowseMenu] = useState(false);
+
+  const name = useSelector(store => store.user?.name)
 
   // handling Drop Down Menu Visibility
   function handleMouseEnter() {
@@ -115,7 +118,7 @@ const BrowserHeader = () => {
                 <span className="flex flex-row text-white text-sm items-center gap-2">
                   <img src={yellowUser} className="rounded-md" alt="userLogo" />
                   <Link>
-                    <p className="hover:underline">Deeksha</p>
+                    <p className="hover:underline">{name}</p>
                   </Link>
                 </span>
                 <span className="flex flex-row text-white text-sm items-center gap-2">

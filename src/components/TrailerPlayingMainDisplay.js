@@ -6,11 +6,12 @@ import { FaPlay } from "react-icons/fa";
 import { IoInformationCircleOutline } from "react-icons/io5";
 import { FaVolumeMute } from "react-icons/fa";
 import { GoUnmute } from "react-icons/go";
+import {  useNavigate } from "react-router-dom";
 
 const TrailerPlayingMainDisplay = () => {
 
   const [showVolumnButton, setShowVolumnButton] = useState(true);
-
+  const navigate = useNavigate();
   // Generating random Number to choose differnt Number EveryTime
   const index = useMemo(() => generateNumber(), []);
 
@@ -36,6 +37,10 @@ const TrailerPlayingMainDisplay = () => {
     setShowVolumnButton(!showVolumnButton);
   };
 
+  function handlePlayButton(){
+    navigate(`/browse/now playing/video/${index}`)
+  }
+
   return (
     <section className="relative w-full lg:85vh aspect-video overflow-x-hidden overflow-hidden">
       <ReactPlayer
@@ -58,7 +63,7 @@ const TrailerPlayingMainDisplay = () => {
           {(movie?.overview)?.substring(0,400)}
         </p>
         <div className="flex flex-row w-[70vw] md:w-auto mt-10  lg:mt-4 gap-4  h-8 md:h-auto ">
-          <button className="flex flex-row items-center gap-2 lg:gap-4 px-6 sm:py-2 lg:px-8 lg:py-3 bg-white text-black text-sm sm:text-lg lg:text-xl font-netFlixBd rounded-md">
+          <button  onClick={handlePlayButton} className="flex flex-row items-center gap-2 lg:gap-4 px-6 sm:py-2 lg:px-8 lg:py-3 bg-white text-black text-sm sm:text-lg lg:text-xl font-netFlixBd rounded-md">
             <FaPlay className="text-sm lg:text-xl" />
             Play
           </button>

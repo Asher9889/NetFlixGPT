@@ -1,9 +1,10 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
 import { loginWithEmailAndPassword } from "../utils/firebaseAuth/passwordLogin";
 import { auth } from "../utils/firebaseAuth/firebase";
 import { removeUser } from "../utils/store/userSlice";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { PiEyeSlash } from "react-icons/pi";
 import { LiaEyeSolid } from "react-icons/lia";
@@ -14,20 +15,17 @@ const SignIn = () => {
   const [showLoginError, setShowLoginError] = useState(null);
   const [loading, setloading] = useState(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const emailRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setShowLoginError(null)
-    },5000)
-  },[passwordFocus])
+  
 
   async function handleLogin(e) {
     try {
       e.preventDefault();
+      setShowLoginError(false);
       if((passwordRef.current.value || emailRef.current.value) === "") {
         return setShowLoginError("Please fill all details")
       }
@@ -41,6 +39,7 @@ const SignIn = () => {
     } catch (error) {
       dispatch(removeUser());
       setShowLoginError(error.message);
+      setloading(false)
     }
   }
 
@@ -55,6 +54,10 @@ const SignIn = () => {
   function handleShowPassword(e) {
     e.preventDefault();
     setShowPassword(!showPassword);
+  }
+
+  function forgetPassword(e){
+    e.preventDefault();
   }
 
   return (
@@ -99,12 +102,12 @@ const SignIn = () => {
                 <p className="absolute -top-[100%] left-[2%] text-sm text-[var(--red4-color)]  font-sans">{showLoginError ? showLoginError : null}</p>
                 {loading ? <p className="w-8 h-8 border-4 border-l-transparent border-r-transparent border-red-900 rounded-full loading"></p> : "Sign in"}
               </button>
-              <button className="text-center hover:text-zinc-400 hover:underline">
+              <button onClick={forgetPassword} className="text-center hover:text-zinc-400 hover:underline">
                 Forget Password?
               </button>
               <h6 className="text-zinc-400">
                 New to Netflix ?
-                <button className="text-white hover:underline">
+                <button   onClick={()=> navigate("/")} className="text-white hover:underline">
                   Sign up now.
                 </button>
               </h6>
