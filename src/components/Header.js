@@ -31,7 +31,13 @@ const Header = () => {
 
 // when ever header component render it get checked user present or not
 // if yes redirect to browse page
-  useAuthStateChange();
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            navigate("/browse")
+        }
+      });
+  },[])
 
 
 
