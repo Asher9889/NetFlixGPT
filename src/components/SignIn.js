@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
 import { loginWithEmailAndPassword } from "../utils/firebaseAuth/passwordLogin";

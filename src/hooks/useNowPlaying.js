@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect,  } from "react";
 import { options } from "../utils/constant";
 import { IMDB_BASE_API_URL } from "../utils/constant";
 import { useDispatch } from "react-redux";
