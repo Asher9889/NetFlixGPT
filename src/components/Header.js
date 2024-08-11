@@ -23,10 +23,10 @@ const Header = () => {
         if (user) {
             navigate("/browse")
         }
-      });
+      })
   },[navigate])
 
-
+// trying
 
 
   return (
