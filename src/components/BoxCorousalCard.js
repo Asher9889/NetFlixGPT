@@ -153,7 +153,6 @@ const BoxCorousalCard = forwardRef((
                     <img
                       className="w-72 object-cover"
                       src={backdropUrl}
-                      alt="video image"
                     />
                   ) : (
                     <iframe

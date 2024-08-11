@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { addEmail, addName, removeUser } from "../utils/store/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import useAuthStateChange from "../hooks/useAuthStateChange";
 
 
 const Header = () => {
@@ -30,15 +31,7 @@ const Header = () => {
 
 // when ever header component render it get checked user present or not
 // if yes redirect to browse page
-  useEffect(()=>{
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            dispatch(addName(user.displayName))
-            dispatch(addEmail(user.email))
-            navigate("/browse")
-        }
-      });
-  },[])
+  useAuthStateChange();
 
 
 

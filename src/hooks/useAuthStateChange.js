@@ -15,11 +15,14 @@ function useAuthStateChange() {
         // console.log(user)
         dispatch(addEmail(user.email))
         dispatch(addName(user.displayName))
+        navigate("/browse")
       } else {
         navigate("/")
       }
     })
-  }, []);
+    // i am adding these beacuse of eslint
+    // also for good coding practise.
+  }, [dispatch, navigate, addEmail, addName]);
 }
 
 export default useAuthStateChange;
