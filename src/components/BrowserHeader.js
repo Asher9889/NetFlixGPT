@@ -14,12 +14,16 @@ import logout from "../utils/firebaseAuth/logout";
 import { auth } from "../utils/firebaseAuth/firebase";
 import BrowseMenu from "./BrowseMenu";
 import { useSelector } from "react-redux";
+import useAuthStateChange from "../hooks/useAuthStateChange"
 
 const BrowserHeader = () => {
   const [showDropDown, setShowDropDown] = useState(false);
   const [showBrowseMenu, setShowBrowseMenu] = useState(false);
 
   const name = useSelector(store => store.user?.name)
+
+  // constently checking user is login or not
+  useAuthStateChange();
 
   // handling Drop Down Menu Visibility
   function handleMouseEnter() {

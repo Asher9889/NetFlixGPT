@@ -93,7 +93,7 @@ const EmailBox = () => {
         </div>
 
         <button
-          className="lg:h-14 h-12 w-[70%] xs:w-[50%] sm:w-4/12 bg-[var(--red-color)] hover:bg-[var(--red2-color)] rounded-md text-xl lg:text-2xl px-2 font-netFlixBd tracking-[0.5px]  justify-center  flex flex-row items-center gap-2 md:gap-4 mt-6 sm:mt-0"
+          className="lg:h-14 h-12 w-[70%] xs:w-[50%] sm:w-4/12 bg-[var(--red-color)] hover:bg-[var(--red2-color)] rounded-md text-xl lg:text-2xl px-2 font-netFlixBd tracking-[0.5px]  justify-center  flex flex-row items-center gap-2 md:gap-4 mt-4 sm:mt-0"
           onClick={handleClick}
         >
           Get Started <HiOutlineChevronRight />

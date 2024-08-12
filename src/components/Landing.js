@@ -16,7 +16,7 @@ const Landing = () => {
         <h1 className="text-[2rem] xs:text-[2rem] leading-[2.5rem]  lg:text-5xl font-netFlixBd  lg:tracking-[1px]">
           Unlimited movies, TV shows and more
         </h1>
-        <h3 className="text-netFlixMd pt-[10%] lg:pt-4    text-xl lg:text-3xl ">
+        <h3 className="text-netFlixMd pt-[5%] sm:pt-[10%] lg:pt-4    text-xl lg:text-3xl ">
           Watch anywhere. Cancel anytime.
         </h3>
         <EmailBox />
