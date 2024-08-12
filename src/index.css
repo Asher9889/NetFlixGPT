@@ -10,10 +10,12 @@
     --red4-color: #ff000c;
     --blue-color: #0071eb;
     --black1-color: #141414;
+    --gray-color-line: #232323;
     --black2-color-button: #6d6d6e;
     --black-color-dropDown: #191918;
     --fillInputBox-color: #232635;
     --emptyInputBox-color: #121213;
+    --footer-text-color: #b3b3b3;
 }
 
 @layer base{
