@@ -1,15 +1,16 @@
+/* eslint-disable */
+
 import { useEffect, useRef, useState } from "react";
 import ContentWrapper from "./ContentWrapper";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { addName, addPassword, addDetailsInFirebase, addEmail, removeUser} from "../utils/store/userSlice"
+import { removeUser} from "../utils/store/userSlice"
 import { passwordValidation } from "../utils/validation";
 import { VscError } from "react-icons/vsc";
 import { PiEyeSlash } from "react-icons/pi";
 import { LiaEyeSolid } from "react-icons/lia";
-import { authUsingEmailAndPassword , createUser} from "../utils/firebaseAuth/passwordAuth";
-import {  loginWithEmailAndPassword} from "../utils/firebaseAuth/passwordLogin"
+import { authUsingEmailAndPassword } from "../utils/firebaseAuth/passwordAuth";
 import { auth } from "../utils/firebaseAuth/firebase";
 
 

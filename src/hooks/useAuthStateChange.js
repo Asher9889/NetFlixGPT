@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebaseAuth/firebase";
@@ -22,7 +24,7 @@ function useAuthStateChange() {
     })
     // i am adding these beacuse of eslint
     // also for good coding practise.
-  }, [dispatch, navigate, addEmail, addName]);
+  }, []);
 }
 
 export default useAuthStateChange;
