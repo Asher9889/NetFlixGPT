@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import netFlixLogo from "../assests/netFlixLogo.png";
 import userLogo from "../assests/user.png";
 import yellowUser from "../assests/yellowUser.png";
@@ -21,6 +21,8 @@ const BrowserHeader = () => {
   const [showBrowseMenu, setShowBrowseMenu] = useState(false);
 
   const name = useSelector(store => store.user?.name)
+
+  const menuItems = [{name: "Home", path: "/browse"}, {name:"TV Shows", path: "/browse/tvshows"}, {name:"Movies", path: "/browse/movies"}, {name:"New & Popular", path: "/browse/popular"}, {name: "Ask Ai", path: "/askgpt"} ]
 
   // constently checking user is login or not
   useAuthStateChange();
@@ -47,27 +49,19 @@ const BrowserHeader = () => {
     await logout(auth);
   }
 
+ 
+
   return (
     <div className="w-full absolute z-20 top-0 flex flex-row justify-between items-center px-[3%] lg:pt-[1%] bg-gradient-to-b from-zinc-900">
       <div className="relative flex flex-row items-center gap-10 ">
         <img className="w-28" src={netFlixLogo} alt="netflixLogo" />
         <div className="hidden lg:block">
-          <ul className="flex flex-row gap-8 text-[14px] text-white">
-            <li>
-              <Link>Home</Link>
-            </li>
-            <li>
-              <Link>TV Shows</Link>
-            </li>
-            <li>
-              <Link>Movies</Link>
-            </li>
-            <li>
-              <Link>New & Popular</Link>
-            </li>
-            <li>
-              <Link>My List</Link>
-            </li>
+          <ul className="flex flex-row gap-8 text-[14px]">
+          {menuItems.map((e)=>(
+             <li key={e.name}>
+             <NavLink to={e.path} className={(p)=> p.isActive ? "text-white" : "text-zinc-300" }>{e.name}</NavLink>
+           </li>
+          ))}
           </ul>
         </div>
         <span

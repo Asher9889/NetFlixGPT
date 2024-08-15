@@ -28,7 +28,7 @@ const BoxCorousal = ({moviesData ,  headingName}) => {
   function handleLeftScrollClick() {
     scrollRef.current.scrollBy({ left: -350, behavior: "smooth" });
   }
-  console.log(cardRef.current)
+  // console.log(cardRef.current)
   return (
     <div onMouseLeave={()=> cardRef.current.handleOnMouseLeave()} className="relative py-6">
       <div >

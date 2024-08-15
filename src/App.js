@@ -5,8 +5,10 @@ import SignIn from "./components/SignIn"
 import SignUp from "./components/SignUp";
 import { Provider } from "react-redux";
 import appStore from "./utils/store/store";
-import Browse from "./Pages/Browse";
+import Browse from "./components/Browse";
 import Movie from "./components/Movie";
+import GPT from "./Pages/GPT";
+import SecuredRoutesPage from "./Pages/SecuredRoutesPage";
 
 const appRoutes = createBrowserRouter([
     {
@@ -23,14 +25,18 @@ const appRoutes = createBrowserRouter([
     },
     {
       path: "/browse",
-      element: <Browse />,
+      element: <SecuredRoutesPage />,
       children: [
         {
         path: "/browse/:type/video/:index",
         element: <Movie />
         }
-    ]
-    }
+      ]
+    },
+        {
+          path: "/askgpt",
+          element: <GPT />
+        }
 ])
 
 function App() {

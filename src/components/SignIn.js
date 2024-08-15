@@ -76,6 +76,7 @@ const SignIn = () => {
                 type="email"
                 placeholder="Email or mobile number"
                 className="  h-16 text-lg px-4 rounded-md bg-[var(--emptyInputBox-color)] border-[1.5px] border-zinc-600 "
+                required
               />
 
               <div
@@ -90,6 +91,7 @@ const SignIn = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   className="w-full h-14 bg-[var(--emptyInputBox-color)] outline-none border-none"
+                  required
                 />
                 <button onClick={handleShowPassword} className="text-xl">
                   {showPassword ? <LiaEyeSolid /> : <PiEyeSlash />}

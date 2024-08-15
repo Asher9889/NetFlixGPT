@@ -17,7 +17,7 @@ function useAuthStateChange() {
         // console.log(user)
         dispatch(addEmail(user.email))
         dispatch(addName(user.displayName))
-        navigate("/browse")
+        // navigate("/browse")
       } else {
         navigate("/")
       }
