@@ -28,7 +28,7 @@ const GPT = () => {
     };
   }, [isOutletActive]);
   return (
-    <div className="w-full text-xl min-h-[100vh]  bg-signInBg ">
+    <div className="w-full min-h-[100vh] text-xl min-h-[100vh]  bg-signInBg ">
       <BrowserHeader />
       <GPTInputBox />
       <GPTResultBox />

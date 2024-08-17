@@ -4,7 +4,8 @@ const appInfoSlice = createSlice({
     name: "appInfo",
     initialState: {
         windowHeight: null,
-        videoListHeight: null
+        videoListHeight: null,
+        loading: null
     },
     reducers: {
         addWindowHeight: (state, action)=>{
@@ -15,10 +16,13 @@ const appInfoSlice = createSlice({
         },
         addvideoListHeight: (state, action)=>{
             state.videoListHeight = action.payload;
+        },
+        changeLoading: (state, action)=>{
+            state.loading = action.payload;
         }
     }
 })
 
-export const { addWindowHeight, removeWindowHeight, addvideoListHeight } = appInfoSlice.actions;
+export const { addWindowHeight, removeWindowHeight, addvideoListHeight, changeLoading } = appInfoSlice.actions;
 
 export default appInfoSlice.reducer;

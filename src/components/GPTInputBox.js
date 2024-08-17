@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import useGemini from "../hooks/useGemini";
 import useGPTMovies from "../hooks/useGPTMovies";
 import useGPTMoviesToTMDB from "../hooks/useGPTMoviesToTMDB";
-import { addGPTDataToSlice} from "../utils/store/gptMoviesSlice";
+import { addGPTDataToSlice } from "../utils/store/gptMoviesSlice";
 import { useDispatch } from "react-redux";
+import { changeLoading } from "../utils/store/appInfoSlice";
+
+
 const GPTInputBox = () => {
   const [inputvalue, setInputvalue] = useState(null);
 
@@ -12,7 +15,7 @@ const GPTInputBox = () => {
 
   // it will ask movie to GEMINI
   const data = useGemini(inputvalue);
-  console.log("Gemini Reply: ", data)
+
   // now converting response in json along with & fetch movies from TMDB
   const res = useGPTMovies(data);
 
@@ -20,12 +23,14 @@ const GPTInputBox = () => {
   const movieVideos = useGPTMoviesToTMDB(res);
 
   function handleSearchClick() {
+    if (inputRef.current.value === "") return;
+    dispatch(changeLoading(true));
     console.log(inputRef.current.value);
     setInputvalue(inputRef.current.value);
   }
 
-  function handleComingData(){
-    console.log("This data going to put in store ",movieVideos)
+  function handleComingData() {
+    console.log("This data going to put in store ", movieVideos);
     let gptMovies = [];
     if (res && movieVideos && res.length === movieVideos.length) {
       for (let i = 0; i < res.length; i++) {
@@ -39,9 +44,8 @@ const GPTInputBox = () => {
   }
 
   useEffect(() => {
-    handleComingData()
-  
-  }, [res, movieVideos, inputRef, handleSearchClick]);
+    handleComingData();
+  }, [inputRef, handleSearchClick]);
 
   return (
     <div className="pt-[25%] md:pt-[10%]  flex flex-col items-center">
