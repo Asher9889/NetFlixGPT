@@ -6,7 +6,7 @@ const useGPTMovies = (data)=>{
     const [gptMovies, setGPTMovies] = useState(null);
 
     useEffect(()=>{
-        finalData()
+        if(data)finalData()
     }, [data])
     // console.log(data)
 

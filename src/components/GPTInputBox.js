@@ -2,43 +2,46 @@ import { useEffect, useRef, useState } from "react";
 import useGemini from "../hooks/useGemini";
 import useGPTMovies from "../hooks/useGPTMovies";
 import useGPTMoviesToTMDB from "../hooks/useGPTMoviesToTMDB";
-import { addGPTDataToSlice } from "../utils/store/gptMoviesSlice";
+import { addGPTDataToSlice} from "../utils/store/gptMoviesSlice";
 import { useDispatch } from "react-redux";
 const GPTInputBox = () => {
-  const [inputvalue, setInputvalue] = useState();
+  const [inputvalue, setInputvalue] = useState(null);
 
   const dispatch = useDispatch();
   const inputRef = useRef();
 
-    // it will ask movie to GEMINI
-    const data = useGemini(inputvalue);
-    console.log(data)
+  // it will ask movie to GEMINI
+  const data = useGemini(inputvalue);
+  console.log("Gemini Reply: ", data)
+  // now converting response in json along with & fetch movies from TMDB
+  const res = useGPTMovies(data);
 
-    // now converting response in json along with & fetch movies from TMDB
-    const res = useGPTMovies(data);
-
-    // now fetching videos for each movies
-    const movieVideos = useGPTMoviesToTMDB(res);
-
+  // now fetching videos for each movies
+  const movieVideos = useGPTMoviesToTMDB(res);
 
   function handleSearchClick() {
-    console.log(inputRef.current.value)
+    console.log(inputRef.current.value);
     setInputvalue(inputRef.current.value);
   }
 
-  useEffect(() => {
+  function handleComingData(){
+    console.log("This data going to put in store ",movieVideos)
     let gptMovies = [];
     if (res && movieVideos && res.length === movieVideos.length) {
       for (let i = 0; i < res.length; i++) {
         gptMovies.push({
-          movie: res[0]?.results[0],
-          videos: movieVideos[i]?.results,
+          movie: res[i]?.results[0],
+          video: movieVideos[i]?.results,
         });
       }
     }
-    console.log(gptMovies);
     dispatch(addGPTDataToSlice(gptMovies));
-  }, [res, movieVideos]);
+  }
+
+  useEffect(() => {
+    handleComingData()
+  
+  }, [res, movieVideos, inputRef, handleSearchClick]);
 
   return (
     <div className="pt-[25%] md:pt-[10%]  flex flex-col items-center">

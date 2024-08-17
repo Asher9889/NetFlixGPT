@@ -35,7 +35,13 @@ const appRoutes = createBrowserRouter([
     },
         {
           path: "/askgpt",
-          element: <GPT />
+          element: <GPT />,
+          children: [
+            {
+              path: "/askgpt/:type/video/:index",
+              element: <Movie />
+            }
+          ]
         }
 ])
 

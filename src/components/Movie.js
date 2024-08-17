@@ -16,6 +16,8 @@ const Movie = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const { index, type } = useParams();
+  const params = useParams()
+  console.log(params)
 
   // List of videos
   const videos = useSelector(
@@ -28,6 +30,8 @@ const Movie = () => {
           return store.trendingMovies?.trendingMovies[index]
         }else if(type === "upcoming"){
           return store.upcomingMovies?.upcomingMovies[index]
+        }else if(type === "askgpt"){
+          return store.gptMovies?.gptMovieData[index]
         }
       }
     );
@@ -39,7 +43,7 @@ const Movie = () => {
   // Filtering trailer from list of videos
   const trailer = videos?.video?.filter((video) => video?.type === "Trailer");
 
-  const trailerVideo = trailer && trailer[0].key
+  const trailerVideo = trailer && trailer[0]?.key
 
     useEffect(()=>{
       setVideoKey(trailerVideo)
@@ -106,7 +110,7 @@ const Movie = () => {
       <div className="relative mx-auto w-[90vw] lg:w-[60vw] bg-[var(--black1-color)] h-[200vh] ">
         <span
           onClick={() => {
-            navigate("/browse")
+            navigate(-1)
           }}
           className="absolute h-10 w-10 right-0 top-0 p-2 hover:text-3xl rounded-full bg-zinc-600 hover:bg-zinc-800 text-white flex justify-center items-center cursor-pointer"
         >

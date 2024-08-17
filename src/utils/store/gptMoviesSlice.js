@@ -8,11 +8,14 @@ const gptMoviesSlice = createSlice({
     reducers: {
         addGPTDataToSlice: (state, action)=>{
             state.gptMovieData = action.payload
+        },
+        removeGPTData: (state,action)=>{
+            state.gptMovieData.length = 0
         }
     }
 
 })
 
 
-export const { addGPTDataToSlice } = gptMoviesSlice.actions
+export const { addGPTDataToSlice, removeGPTData } = gptMoviesSlice.actions
 export default gptMoviesSlice.reducer;
