@@ -6,7 +6,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 const useGemini = (input) => {
   const [response, setResponse] = useState(null);
 
-  const prompt = input + ". Provide only json data, no other info is needed. keep remember act like a api who only provides data in from of json data like other APIs. Provide results in array just like APIs "
+  const prompt = input + "Only provide movie names in title property. Provide only json data, no other info is needed. keep remember act like a api who only provides data in from of json data like other APIs. Provide results in array just like APIs "
   
   useEffect(() => {
     askToGemini();

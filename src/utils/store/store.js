@@ -6,6 +6,7 @@ import top10MoviesReducers from "./top10MovieSlice";
 import popularMoviesReducers from "./popularMovieSlice";
 import trendingReducers from "./trendingSlice";
 import upcomingReducers from "./upcomingSlice";
+import gptMoviesReducers from "./gptMoviesSlice"
 
 const appStore = configureStore({
     reducer:{
@@ -16,6 +17,7 @@ const appStore = configureStore({
         popularMovies: popularMoviesReducers,
         trendingMovies: trendingReducers,
         upcomingMovies: upcomingReducers,
+        gptMovies: gptMoviesReducers
     }
 });
 
