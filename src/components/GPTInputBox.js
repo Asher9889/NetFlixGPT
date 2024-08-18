@@ -55,6 +55,7 @@ const GPTInputBox = () => {
           className="flex-1 rounded-md px-4 py-2 text-lg md:text-xl"
           type="text"
           required
+          placeholder="Ask to AI"
         />
         <button
           onClick={handleSearchClick}

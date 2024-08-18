@@ -15,8 +15,10 @@ const GPTResultBox = () => {
 
   return (<>
   <div className="w-full flex justify-center relative  bottom-0  mt-[5%] ">
-  {showLoading ? <div class="loader"></div> :  <div className="w-[100%] px-[4%]">
-        <div className="flex flex-row flex-wrap justify-center gap-4 pt-8 pb-20">
+  {showLoading ? <div className="w-full h-full flex justify-center pt-20">
+    <div className="loader"></div>
+  </div> :  <div className="w-[100%]  ">
+        <div className="flex px-[4%] flex-row flex-wrap justify-center gap-4 pt-8 pb-20 ">
          { movies?.map((movie, index) => (
           <img
             onClick={() => handleMovieClick(index)}

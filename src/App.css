@@ -28,6 +28,7 @@
 /* HTML: <div class="loader"></div> */
 .loader {
   width: 50px;
+  /* background-color: green; */
   aspect-ratio: 1;
   border-radius: 50%;
   border: 8px solid red;

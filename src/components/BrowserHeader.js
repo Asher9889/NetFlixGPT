@@ -76,7 +76,7 @@ const BrowserHeader = () => {
           {showBrowseMenu && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "270px", opacity: 1 }}
+              animate={{ height: "330px", opacity: 1 }}
               exit={{ height: 0 }}
               className="absolute top-[120%] w-[60vw] max-w-[300px] bg-[var(--black-color-dropDown)] rounded-md"
             >

@@ -5,7 +5,6 @@ import GPTInputBox from "../components/GPTInputBox";
 import GPTResultBox from "../components/GPTResultBox";
 
 const GPT = () => {
-
   const location = useLocation();
   const isOutletActive = location.pathname === "/askgpt";
 
@@ -29,9 +28,11 @@ const GPT = () => {
   }, [isOutletActive]);
   return (
     <div className="w-full min-h-[100vh] text-xl min-h-[100vh]  bg-signInBg ">
-      <BrowserHeader />
-      <GPTInputBox />
-      <GPTResultBox />
+      <div className="bg-gradient-to-b from-black">
+        <BrowserHeader />
+        <GPTInputBox />
+        <GPTResultBox />
+      </div>
 
       <Outlet />
     </div>
