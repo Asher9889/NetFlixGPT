@@ -3,7 +3,7 @@ import ContentWrapper from "./ContentWrapper";
 
 const Footer = () => {
   return (
-    <footer className="pb-14 ">
+    <footer className="pb-14 bg-black">
       <div className="h-[8px] bg-[var(--gray-color-line)]" />
       <ContentWrapper>
         <div className="text-sm px-[4%] text-white bg-[#000] mt-14 opacity-80">

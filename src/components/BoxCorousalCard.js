@@ -19,16 +19,18 @@ import { addWindowHeight } from "../utils/store/appInfoSlice";
 import { useNavigate } from "react-router-dom";
 import useIsMobileOrdesktop from "../hooks/useIsMobileOrDesktop";
 
-const BoxCorousalCard = forwardRef((
+const BoxCorousalCard = forwardRef(
+  (
     {
       cardIndex,
       movie,
       index,
       onMouseOverChangeCardIndex,
       onMouseOutChnageCardIndex,
-      headingName
-    },ref) => {
-
+      headingName,
+    },
+    ref
+  ) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -37,7 +39,6 @@ const BoxCorousalCard = forwardRef((
 
     const [showDetails, setShowDetails] = useState(false);
     const [isVideoActive, setIsVideoActive] = useState(false);
-
 
     // checking mobile or desktop
     const isMobile = useIsMobileOrdesktop();
@@ -50,17 +51,14 @@ const BoxCorousalCard = forwardRef((
     // used lodash library to access path otherwise it will search storeLocation
     // inside store object
 
-      // for optimising redux
+    // for optimising redux
 
     // const selectVideos = createSelector(
     //     [(state, index) => get(state, `${storeLocation}[${index}]`, [])],
     //     (videos) => videos
     // );
-      
+
     // const videos = useSelector((state) => selectVideos(state, index));
-
-
-
 
     const trailer = movie?.video?.filter((video) => video.type === "Trailer");
 
@@ -72,7 +70,7 @@ const BoxCorousalCard = forwardRef((
     let backdropUrl = IMDB_IMG_URL + movie.backdrop_path;
     const type = headingName?.toLowerCase();
 
-    const handleOnMouseEnter =() => {
+    const handleOnMouseEnter = () => {
       if (isMobile === "Mobile") return;
       setShowDetails(false);
       setIsVideoActive(false);
@@ -85,7 +83,7 @@ const BoxCorousalCard = forwardRef((
       videoTimer.current = setTimeout(() => {
         setIsVideoActive(true);
       }, 2000);
-    }
+    };
 
     const handleOnMouseLeave = () => {
       if (isMobile === "Mobile") return;
@@ -94,12 +92,12 @@ const BoxCorousalCard = forwardRef((
       onMouseOutChnageCardIndex();
       clearTimeout(timer.current);
       clearTimeout(videoTimer.current);
-    }
+    };
 
     function handlePopCardClick() {
       if (isMobile === "Mobile") return;
 
-      handleOnMouseLeave()
+      handleOnMouseLeave();
       dispatch(addWindowHeight(window.scrollY));
       navigate(`/browse/${type}/video/${index}`);
       window.scrollTo({
@@ -108,7 +106,7 @@ const BoxCorousalCard = forwardRef((
       });
     }
 
-    function handleCardClick(){
+    function handleCardClick() {
       if (isMobile === "Desktop") return;
       dispatch(addWindowHeight(window.scrollY));
       navigate(`/browse/${type}/video/${index}`);
@@ -152,10 +150,7 @@ const BoxCorousalCard = forwardRef((
               <div>
                 {
                   !isVideoActive ? (
-                    <img
-                      className="w-72 object-cover"
-                      src={backdropUrl}
-                    />
+                    <img className="w-72 object-cover" src={backdropUrl} />
                   ) : (
                     <iframe
                       // width="100%"
@@ -185,13 +180,19 @@ const BoxCorousalCard = forwardRef((
                       <IoIosThumbsUp />
                     </span>
                   </div>
-
-                  <span
-                    onClick={handlePopCardClick}
-                    className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-xl cursor-pointer"
-                  >
-                    <FaChevronDown />
-                  </span>
+                  <div className="relative box">
+                    <span
+                      onClick={handlePopCardClick}
+                      className=" flex justify-center items-center h-8 w-8  p-0 rounded-full text-white border-[2px] border-zinc-500 text-lg cursor-pointer hover:text-xl hover:bg-zinc-800"
+                    >
+                      <FaChevronDown />
+                    </span>
+                    <span className="tooltip absolute -bottom-[80%] right-[8%] ">
+                      <p className="text-xs px-2 py-[2px] rounded-md border-zinc-800 border-[1px] font-netFlixRg  text-zinc-500  hidden">
+                        More
+                      </p>
+                    </span>
+                  </div>
                 </div>
                 <div>
                   <h1>{movie.original_title}</h1>

@@ -1,5 +1,4 @@
 import { Outlet, useLocation } from "react-router-dom";
-import BrowserHeader from "./BrowserHeader";
 import TrailerPlayingMainDisplay from "./TrailerPlayingMainDisplay";
 import TrailerPlayingSecondaryDisplay from "./TrailerPlayingSecondaryDisplay";
 import useAuthStateChange from "../hooks/useAuthStateChange";
