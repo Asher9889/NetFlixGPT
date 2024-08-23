@@ -22,6 +22,7 @@ const SignUp = ()=>{
     const [showPassword, setShowPassword] = useState(false)
     const [userPassword, setUserPassword] = useState(null);
     const [firebaseError, setFirebaseError] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     // Subscribing Email from store to signUp page 
     const email = useSelector((store)=> store.user.email)
@@ -42,6 +43,7 @@ const SignUp = ()=>{
     // Handling password validation
     function handlePasswordValidation(){
         if(password === ""){
+            setLoading(false)
             setShowEmptyMsg(true)
         }else{
             if(password === null) return;
@@ -77,6 +79,7 @@ const SignUp = ()=>{
     // Singup Logic
     async function handleSignUp(e){
         try {
+            setLoading(true)
             e.preventDefault();
             const user = await authUsingEmailAndPassword(auth, email, userPassword, nameRef.current.value)
             // onAuthStateChange from firebase automatic redirect us to browse page
@@ -89,6 +92,7 @@ const SignUp = ()=>{
             }
            */
         } catch (error) {
+            setLoading(false)
             dispatch(removeUser());
             setFirebaseError(error.message);
             console.log(error);
@@ -105,7 +109,7 @@ const SignUp = ()=>{
             <ContentWrapper>
                 <div className="px-4 md:w-3/5 lg:w-2/5 mx-auto mt-[3%] font-netFlixMd">
                     
-                    <form className="w-full  flex flex-col gap-4">
+                    <form   className="w-full  flex flex-col gap-4">
                         <h1 className="text-[2rem] opacity-[0.8]">Welcome back! <br/>Joining Netflix is easy.</h1>
                         <p className="text-[1.1rem] font-netFlixRg opacity-[0.8]">Enter your password and you'll be watching in no time.</p>
                         <span>
@@ -116,6 +120,7 @@ const SignUp = ()=>{
                         <div>
                             <span className="w-full h-14 border-[1px] px-4 rounded-sm border-blue-500 font-netFlixRg text-lg  flex flex-row justify-between">
                                 <input
+                                    
                                     onChange={handlePasswordChange} 
                                     onFocus={handleFocus}
                                     onBlur={handleBlur}
@@ -125,13 +130,17 @@ const SignUp = ()=>{
                             </span>
                             <p className="text-sm text-[var(--red4-color)]  font-sans">
                                 {showEmptyMsg ? (<span className="flex  items-center gap-2"><VscError /> Password is required </span>) : (showErrorMsg ? "Capital letter, symbol and number is required" : <span className="opacity-0">i am hidden</span>)}
-                                
+                                {/* {firebaseError && <span className="flex  items-center"> Please fill all the details</span>} */}
                             </p>
                         </div>
 
                         <div className="flex flex-col gap-4 -mt-4">
                             <Link className="text-[1rem] font-netFlixRg mt-2 text-[var(--blue-color)] hover:underline">Forgot your password?</Link>
-                            <button onClick={handleSignUp} className="h-16 text-white rounded-md font-netFlixRg text-[1.6rem] bg-[var(--red-color)] hover:bg-[var(--red2-color)]">Sign up</button>
+                            <button onClick={handleSignUp} className="h-16 text-white rounded-md font-netFlixRg text-[1.6rem] bg-[var(--red-color)] hover:bg-[var(--red2-color)] flex flex-row justify-center items-center gap-6">
+                            {loading && <div className="signup-loader"></div>}
+                                Sign up
+                            </button>
+                           
                         
                         </div>
                     </form>

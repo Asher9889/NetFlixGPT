@@ -11,7 +11,7 @@ export async function authUsingEmailAndPassword(auth, email, password, name) {
       })
     return updatedUser;
   } catch (error) {
-    console.log(error);
+    throw new Error("Bad request");
   }
 }
 
