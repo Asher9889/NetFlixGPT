@@ -3,6 +3,7 @@ import Browse from "../components/Browse"
 import Footer from "../components/Footer"
 
 
+
 const SecuredRoutesPage = ()=>{
 
     return (

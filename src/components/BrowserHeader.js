@@ -22,7 +22,7 @@ const BrowserHeader = () => {
 
   const name = useSelector(store => store.user?.name)
 
-  const menuItems = [{name: "Home", path: "/browse"}, {name:"TV Shows", path: "/browse/tvshows"}, {name:"Movies", path: "/browse/movies"}, {name:"New & Popular", path: "/browse/popular"}, {name: "Ask Ai", path: "/askgpt"} ]
+  const menuItems = [{name: "Home", path: "/browse"}, {name:"TV Shows", path: "/browse/tvshow"}, {name:"Movies", path: "/browse/movies"}, {name:"New & Popular", path: "/browse/popular"}, {name: "Ask Ai", path: "/askgpt"} ]
 
   // constently checking user is login or not
   useAuthStateChange();
@@ -54,7 +54,9 @@ const BrowserHeader = () => {
   return (
     <div className="w-full absolute z-20 top-0 flex flex-row justify-between items-center px-[3%] lg:pt-[1%] bg-gradient-to-b from-zinc-900">
       <div className="relative flex flex-row items-center gap-10 ">
-        <img className="w-28" src={netFlixLogo} alt="netflixLogo" />
+        <Link to="/browse">
+          <img  className="w-28" src={netFlixLogo} alt="netflixLogo" />
+        </Link>
         <div className="hidden lg:block">
           <ul className="flex flex-row gap-8 text-[14px]">
           {menuItems.map((e)=>(
